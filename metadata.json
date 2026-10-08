@@ -1,0 +1,6 @@
+{
+  "name": "The Velvet Glove of Beijing: Panda Diplomacy",
+  "description": "Interactive Geopolitical Analysis of China's Panda Diplomacy: Soft power projection, economic reciprocity, and coercive public diplomacy in PRC foreign policy.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

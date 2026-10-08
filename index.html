@@ -1,0 +1,2396 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Velvet Glove of Beijing: A Geopolitical Analysis of China’s Panda Diplomacy</title>
+    <meta name="description" content="An interactive academic and geopolitical analysis of China's Panda Diplomacy: Soft power projection, economic reciprocity, and coercive public diplomacy in PRC foreign policy." />
+    <meta property="og:title" content="The Velvet Glove of Beijing: A Geopolitical Analysis of China’s Panda Diplomacy" />
+    <meta property="og:description" content="Soft power projection, economic reciprocity, and coercive public diplomacy in PRC foreign policy." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Google Fonts: Playfair Display (Academic Serif), Inter, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,900;1,400;1,600&display=swap" rel="stylesheet" />
+
+    <!-- CDN Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'charcoal-dark': '#0B0F19',
+              'midnight-card': '#111827',
+              'midnight-card-subtle': '#161F33',
+              'china-crimson': '#E63946',
+              'panda-jade': '#10B981',
+              'diplomatic-gold': '#F59E0B',
+              'diplomatic-blue': '#3B82F6',
+              'border-subtle': 'rgba(255, 255, 255, 0.08)',
+            },
+            fontFamily: {
+              serif: ['"Playfair Display"', 'Georgia', 'serif'],
+              display: ['"Cinzel"', '"Playfair Display"', 'serif'],
+              sans: ['"Inter"', 'system-ui', 'sans-serif'],
+              mono: ['"JetBrains Mono"', 'monospace'],
+            }
+          }
+        }
+      }
+    </script>
+
+    <style>
+      /* Academic and Dark Theming Utilities */
+      body {
+        background-color: #0B0F19;
+        color: #F9FAFB;
+        font-family: 'Inter', system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0B0F19;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1F2937;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #374151;
+      }
+
+      /* Vis Network Container styling */
+      #networkCanvas {
+        width: 100%;
+        height: 620px;
+        outline: none;
+        background: radial-gradient(circle at 50% 50%, #151D30 0%, #0B0F19 85%);
+      }
+
+      /* Academic Drop Cap */
+      .academic-dropcap::first-letter {
+        font-family: 'Playfair Display', serif;
+        font-size: 3.75rem;
+        float: left;
+        line-height: 0.8;
+        padding-top: 0.25rem;
+        padding-right: 0.75rem;
+        padding-bottom: 0.1rem;
+        color: #E63946;
+        font-weight: 700;
+      }
+
+      /* Tab active indicator styling */
+      .tab-btn.active {
+        color: #F9FAFB;
+        border-bottom-color: #E63946;
+        background-color: rgba(230, 57, 70, 0.08);
+      }
+
+      /* Range slider thumb styling */
+      input[type=range] {
+        accent-color: #E63946;
+      }
+
+      /* Print Styles */
+      @media print {
+        header, nav, #networkCanvas, .no-print {
+          display: none !important;
+        }
+        body {
+          background: #ffffff !important;
+          color: #000000 !important;
+        }
+        .container {
+          max-width: 100% !important;
+          padding: 0 !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-charcoal-dark text-gray-200 min-h-screen flex flex-col selection:bg-china-crimson selection:text-white">
+
+    <!-- Top Sticky Bar Contract (Brand Title — Nav Links — Primary Action) -->
+    <header class="sticky top-0 z-40 bg-charcoal-dark/95 backdrop-blur-md border-b border-white/10 px-4 lg:px-8 py-3 transition-colors">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        
+        <!-- Zone 1: Single text element wordmark with diplomatic badge -->
+        <a href="#overview" onclick="switchTab('overview')" class="flex items-center gap-3 text-white hover:text-gray-200 transition-colors group">
+          <div class="w-8 h-8 rounded bg-china-crimson/20 border border-china-crimson/50 flex items-center justify-center text-china-crimson font-serif font-bold text-lg group-hover:bg-china-crimson group-hover:text-white transition-all">
+            竹
+          </div>
+          <div class="flex flex-col">
+            <span class="font-serif font-bold tracking-tight text-base lg:text-lg text-white">The Velvet Glove of Beijing</span>
+            <span class="text-[10px] uppercase font-mono tracking-widest text-gray-400">Panda Diplomacy IR Analysis</span>
+          </div>
+        </a>
+
+        <!-- Zone 2: 5 Clean Text Navigation Links -->
+        <nav class="hidden md:flex items-center gap-1 lg:gap-2 text-xs lg:text-sm font-medium" id="mainNavigation">
+          <button onclick="switchTab('overview')" id="nav-btn-overview" class="tab-btn active px-3 py-2 rounded-t transition-colors text-gray-300 hover:text-white border-b-2 border-transparent">
+            Overview
+          </button>
+          <button onclick="switchTab('mindmap')" id="nav-btn-mindmap" class="tab-btn px-3 py-2 rounded-t transition-colors text-gray-400 hover:text-white border-b-2 border-transparent">
+            Diplomatic Mind Map
+          </button>
+          <button onclick="switchTab('framework')" id="nav-btn-framework" class="tab-btn px-3 py-2 rounded-t transition-colors text-gray-400 hover:text-white border-b-2 border-transparent">
+            IR Framework
+          </button>
+          <button onclick="switchTab('casestudies')" id="nav-btn-casestudies" class="tab-btn px-3 py-2 rounded-t transition-colors text-gray-400 hover:text-white border-b-2 border-transparent">
+            Case Studies
+          </button>
+          <button onclick="switchTab('calculator')" id="nav-btn-calculator" class="tab-btn px-3 py-2 rounded-t transition-colors text-gray-400 hover:text-white border-b-2 border-transparent">
+            Lease & Legal Calculator
+          </button>
+        </nav>
+
+        <!-- Zone 3: Primary Action & Quick Tools -->
+        <div class="flex items-center gap-2">
+          <button onclick="openCitationModal()" class="px-3 py-1.5 text-xs font-medium text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded transition-colors flex items-center gap-1.5">
+            <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Citation & Bib</span>
+          </button>
+          <button onclick="printOrExportDossier()" class="px-3 py-1.5 text-xs font-semibold text-white bg-china-crimson hover:bg-red-700 rounded transition-colors shadow-sm flex items-center gap-1.5">
+            <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+            <span>Export Briefing</span>
+          </button>
+          <!-- Mobile Menu Trigger -->
+          <button onclick="toggleMobileMenu()" class="md:hidden p-1.5 text-gray-300 hover:text-white bg-white/5 rounded border border-white/10" aria-label="Toggle navigation">
+            <i data-lucide="menu" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Mobile Nav Drawer -->
+      <div id="mobileMenu" class="hidden md:hidden pt-3 pb-2 border-t border-white/10 mt-3 grid grid-cols-2 gap-2 text-xs">
+        <button onclick="switchTab('overview'); toggleMobileMenu();" class="p-2 text-left bg-white/5 rounded text-gray-200">01. Overview</button>
+        <button onclick="switchTab('mindmap'); toggleMobileMenu();" class="p-2 text-left bg-white/5 rounded text-gray-200">02. Mind Map</button>
+        <button onclick="switchTab('framework'); toggleMobileMenu();" class="p-2 text-left bg-white/5 rounded text-gray-200">03. IR Framework</button>
+        <button onclick="switchTab('casestudies'); toggleMobileMenu();" class="p-2 text-left bg-white/5 rounded text-gray-200">04. Case Studies</button>
+        <button onclick="switchTab('calculator'); toggleMobileMenu();" class="col-span-2 p-2 text-left bg-white/5 rounded text-gray-200">05. Lease & Legal Calculator</button>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 lg:px-8 py-8 space-y-10">
+
+      <!-- ========================================== -->
+      <!-- TAB 1: EXECUTIVE OVERVIEW & DASHBOARD       -->
+      <!-- ========================================== -->
+      <section id="section-overview" class="tab-content block space-y-8">
+        
+        <!-- Academic Header Banner -->
+        <div class="relative overflow-hidden rounded-xl bg-midnight-card border border-white/10 p-6 lg:p-10 shadow-2xl">
+          <!-- Subtle decorative watermark accent -->
+          <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none select-none text-9xl font-serif text-white">
+            大熊猫
+          </div>
+
+          <!-- Academic Editorial Kicker -->
+          <div class="flex flex-wrap items-center gap-2 text-xs font-mono text-gray-400 mb-4 pb-3 border-b border-white/10">
+            <span>OCCASIONAL PAPERS IN GEOPOLITICS &amp; FOREIGN POLICY</span>
+            <span aria-hidden="true">·</span>
+            <span>VOL. 14, NO. 3</span>
+            <span aria-hidden="true">·</span>
+            <span class="text-panda-jade font-medium">UNCLASSIFIED / ACADEMIC REPORT</span>
+            <span aria-hidden="true">·</span>
+            <span>SPRING 2026</span>
+          </div>
+
+          <!-- Main Title & Subtitle -->
+          <div class="max-w-4xl space-y-3">
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold tracking-tight text-white leading-tight">
+              The Velvet Glove of Beijing: A Geopolitical Analysis of China’s Panda Diplomacy
+            </h1>
+            <p class="text-base sm:text-lg text-gray-300 font-serif italic leading-relaxed">
+              Soft Power Projection, Economic Reciprocity, and Coercive Public Diplomacy in the People's Republic of China’s Foreign Policy.
+            </p>
+          </div>
+
+          <!-- Curatorial Metadata Strip -->
+          <div class="mt-6 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs text-gray-400">
+            <div class="flex items-center gap-2">
+              <span class="font-medium text-gray-300">Author:</span>
+              <span>Senior Geopolitical Analyst &amp; IR Chair</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <span>Methodology: Empirical Bilateral Trade &amp; Lease Correlates</span>
+              <span aria-hidden="true">·</span>
+              <span>Scope: 1953–Present</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI Metric Cards Grid (Zero-Pill Discipline, Tabular Figures) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          
+          <!-- KPI 1 -->
+          <div class="bg-midnight-card border border-white/10 rounded-lg p-5 flex flex-col justify-between hover:border-china-crimson/50 transition-colors">
+            <div>
+              <span class="text-xs uppercase tracking-wider font-mono text-gray-400">Financial Benchmark</span>
+              <div class="text-2xl sm:text-3xl font-bold font-mono text-white mt-2 tabular-nums">
+                $1.0M – $2.0M
+              </div>
+              <p class="text-xs text-gray-400 mt-1">USD Annual Lease Fee Per Pair</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/5 text-[11px] text-gray-400 leading-normal">
+              Directly remitted to Sichuan conservation trusts; compels Western institutions to underwrite PRC ecological infrastructure.
+            </div>
+          </div>
+
+          <!-- KPI 2 -->
+          <div class="bg-midnight-card border border-white/10 rounded-lg p-5 flex flex-col justify-between hover:border-china-crimson/50 transition-colors">
+            <div>
+              <span class="text-xs uppercase tracking-wider font-mono text-gray-400">Sovereign Jurisdiction</span>
+              <div class="text-2xl sm:text-3xl font-bold font-mono text-panda-jade mt-2 tabular-nums">
+                100%
+              </div>
+              <p class="text-xs text-gray-400 mt-1">PRC Ownership of Offspring</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/5 text-[11px] text-gray-400 leading-normal">
+              "Born Abroad" clause denies extraterritorial claims. Host zoos remit $600k birth fee and repatriate cubs at age four.
+            </div>
+          </div>
+
+          <!-- KPI 3 -->
+          <div class="bg-midnight-card border border-white/10 rounded-lg p-5 flex flex-col justify-between hover:border-china-crimson/50 transition-colors">
+            <div>
+              <span class="text-xs uppercase tracking-wider font-mono text-gray-400">Institutional Lock-In</span>
+              <div class="text-2xl sm:text-3xl font-bold font-mono text-diplomatic-gold mt-2 tabular-nums">
+                10 – 15 Yrs
+              </div>
+              <p class="text-xs text-gray-400 mt-1">Standard Research Agreement</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/5 text-[11px] text-gray-400 leading-normal">
+              Zoos incur $2.5M+ annual operating sunk costs, transforming civic leadership into domestic lobbyists for bilateral harmony.
+            </div>
+          </div>
+
+          <!-- KPI 4 -->
+          <div class="bg-midnight-card border border-white/10 rounded-lg p-5 flex flex-col justify-between hover:border-china-crimson/50 transition-colors">
+            <div>
+              <span class="text-xs uppercase tracking-wider font-mono text-gray-400">Global Diplomatic Footprint</span>
+              <div class="text-2xl sm:text-3xl font-bold font-mono text-china-crimson mt-2 tabular-nums">
+                24+ Recipient States
+              </div>
+              <p class="text-xs text-gray-400 mt-1">Strategic Global Deployments</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/5 text-[11px] text-gray-400 leading-normal">
+              Spanning the Sino-Soviet split, 1972 US rapprochement, European FTA summits, to 2022 Qatari LNG energy pacts.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Executive Synthesis & Analytical Matrix -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          <!-- Longform Executive Summary -->
+          <div class="lg:col-span-2 bg-midnight-card border border-white/10 rounded-xl p-6 lg:p-8 space-y-6">
+            <div class="flex items-center justify-between border-b border-white/10 pb-4">
+              <h2 class="text-xl font-serif font-bold text-white flex items-center gap-2">
+                <i data-lucide="shield-check" class="w-5 h-5 text-china-crimson"></i>
+                Executive Summary &amp; Grand Strategy
+              </h2>
+              <span class="text-xs font-mono text-gray-400">Core Thesis</span>
+            </div>
+
+            <p class="academic-dropcap text-sm sm:text-base text-gray-300 leading-relaxed">
+              For over seven decades, the People’s Republic of China (PRC) has employed <em>Ailuropoda melanoleuca</em> (the Giant Panda) not merely as a national emblem, but as a sophisticated instrument of statecraft. "Panda Diplomacy" represents a unique intersection of soft power, economic reciprocity, and coercive public diplomacy. This analysis demonstrates how Beijing leverages its monopoly over this endangered species to advance grand strategic objectives: securing vital natural resources, signaling international favor, and projecting an image of benign global leadership.
+            </p>
+
+            <p class="text-sm sm:text-base text-gray-300 leading-relaxed">
+              The strategy has evolved through distinct ideological paradigms: from the ideological gift-giving of the Maoist era to the commercial leasing model under Deng Xiaoping, culminating in the current era of high-stakes strategic loans linked to foreign direct investment (FDI), uranium access, free trade agreements (FTAs), and high-tech trade treaties. By controlling the global supply of pandas, China creates long-term institutional codependency with premier global zoological institutions, converting public affection for these charismatic megafauna into tangible diplomatic leverage.
+            </p>
+
+            <!-- Collapsible In-Depth Analysis Drawer -->
+            <div class="pt-2">
+              <button onclick="toggleSummaryDrawer()" id="summaryDrawerToggle" class="w-full py-2.5 px-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-xs font-semibold text-gray-200 flex items-center justify-between transition-colors">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="maximize-2" class="w-3.5 h-3.5 text-diplomatic-gold"></i>
+                  <span>Read Extended Diplomatic &amp; Institutional Codependency Analysis</span>
+                </span>
+                <i data-lucide="chevron-down" id="drawerChevron" class="w-4 h-4 transition-transform duration-200"></i>
+              </button>
+
+              <div id="summaryDrawerContent" class="hidden mt-4 p-5 bg-black/40 border border-white/10 rounded-lg space-y-4 text-xs sm:text-sm text-gray-300 leading-relaxed">
+                <h3 class="font-serif font-bold text-white text-base">The Anatomy of Institutional Codependency</h3>
+                <p>
+                  Maintaining giant pandas requires specialized housing, seismic glass quarantine enclosures, temperature-regulated nursery wards, and dedicated bamboo supply chains costing zoos upward of $2.5 million annually (excluding lease fees). Because host institutions make multimillion-dollar capital investments ($5M–$25M) to construct these habitats, they incur severe sunk costs.
+                </p>
+                <p>
+                  Consequently, host organizations become active domestic lobbyists. When bilateral relations chill—over Taiwan, human rights statements, or semiconductor sanctions—foreign ministries find themselves lobbied by their own prominent civic leaders, trustees, and museum boards pleading to protect their prized zoological assets from PRC recall.
+                </p>
+                <div class="p-3 bg-white/5 border-l-2 border-china-crimson text-xs italic text-gray-400">
+                  "The panda functions as a biological hostage: public grief over a recall generates domestic political pushback against any foreign policy hawkishness that might alienate Beijing."
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Action Jump Buttons -->
+            <div class="pt-4 border-t border-white/10 flex flex-wrap gap-3">
+              <button onclick="switchTab('mindmap')" class="px-4 py-2 bg-china-crimson hover:bg-red-700 text-white rounded text-xs font-medium flex items-center gap-2 transition-colors">
+                <i data-lucide="network" class="w-3.5 h-3.5"></i>
+                <span>Explore Interactive Mind Map</span>
+              </button>
+              <button onclick="switchTab('calculator')" class="px-4 py-2 bg-white/10 hover:bg-white/15 text-white rounded text-xs font-medium flex items-center gap-2 transition-colors">
+                <i data-lucide="calculator" class="w-3.5 h-3.5"></i>
+                <span>Calculate Lease Financials</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- The Three Eras Comparative Matrix -->
+          <div class="bg-midnight-card border border-white/10 rounded-xl p-6 lg:p-8 space-y-6 flex flex-col justify-between">
+            <div>
+              <div class="border-b border-white/10 pb-4 mb-4">
+                <h2 class="text-xl font-serif font-bold text-white flex items-center gap-2">
+                  <i data-lucide="history" class="w-5 h-5 text-panda-jade"></i>
+                  The 3 Diplomatic Eras
+                </h2>
+                <span class="text-xs font-mono text-gray-400">Evolution of Strategic Leasing</span>
+              </div>
+
+              <div class="space-y-4">
+                
+                <!-- Era 1 -->
+                <div class="p-4 bg-white/5 border border-white/10 rounded-lg hover:border-china-crimson/50 transition-colors">
+                  <div class="flex items-center justify-between text-xs font-mono text-gray-400">
+                    <span>1953 – 1982</span>
+                    <span class="text-china-crimson font-semibold">Maoist Gift Era</span>
+                  </div>
+                  <h4 class="font-serif font-bold text-white text-sm mt-1">Ideological Gift-Giving</h4>
+                  <p class="text-xs text-gray-400 mt-1 leading-normal">
+                    Outright, uncompensated state gifts to socialist allies (USSR, North Korea) and later Western powers during Cold War rapprochement (USA 1972, UK, France, Japan).
+                  </p>
+                </div>
+
+                <!-- Era 2 -->
+                <div class="p-4 bg-white/5 border border-white/10 rounded-lg hover:border-diplomatic-gold/50 transition-colors">
+                  <div class="flex items-center justify-between text-xs font-mono text-gray-400">
+                    <span>1984 – 1998</span>
+                    <span class="text-diplomatic-gold font-semibold">Dengist Commercial</span>
+                  </div>
+                  <h4 class="font-serif font-bold text-white text-sm mt-1">Short-Term "Rent-a-Panda"</h4>
+                  <p class="text-xs text-gray-400 mt-1 leading-normal">
+                    Short-term commercial exhibition leases ($50k–$100k/month) driven by Deng’s market opening (1984 LA Olympics). Criticized by WWF, halted in late 1990s.
+                  </p>
+                </div>
+
+                <!-- Era 3 -->
+                <div class="p-4 bg-white/5 border border-white/10 rounded-lg hover:border-panda-jade/50 transition-colors">
+                  <div class="flex items-center justify-between text-xs font-mono text-gray-400">
+                    <span>1998 – Present</span>
+                    <span class="text-panda-jade font-semibold">Xi Strategic Lease</span>
+                  </div>
+                  <h4 class="font-serif font-bold text-white text-sm mt-1">Strategic Conservation Loans</h4>
+                  <p class="text-xs text-gray-400 mt-1 leading-normal">
+                    10–15 year research loans structured around $1M+/year tariffs, resource concessions (uranium, salmon, LNG), and explicit One-China compliance.
+                  </p>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-white/10 text-xs text-gray-400">
+              <span class="text-white font-medium">Diplomatic Insight:</span>
+              Pandas transitioned from Cold War tokens to commercial assets, and finally to institutional instruments of coercive foreign policy.
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 2: INTERACTIVE DIPLOMATIC MIND MAP     -->
+      <!-- ========================================== -->
+      <section id="section-mindmap" class="tab-content hidden space-y-6">
+        
+        <!-- Header & Visual Controls Bar -->
+        <div class="bg-midnight-card border border-white/10 rounded-xl p-6 space-y-4">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2 text-xs font-mono text-gray-400 mb-1">
+                <span>SECTION 02</span>
+                <span aria-hidden="true">·</span>
+                <span class="text-china-crimson">TOPOLOGICAL DIPLOMATIC NETWORK</span>
+              </div>
+              <h2 class="text-2xl font-serif font-bold text-white">Interactive Diplomatic Mind Map</h2>
+              <p class="text-xs sm:text-sm text-gray-400">
+                Explore the relational graph connecting Beijing's grand strategy, historical eras, recipient states, and coinciding trade pacts.
+              </p>
+            </div>
+
+            <!-- Graph Controls Toolbar -->
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="filterNetwork('all')" class="network-filter-btn px-3 py-1.5 text-xs font-medium rounded bg-white/15 text-white hover:bg-white/20 transition-colors" data-filter="all">
+                All Deployments
+              </button>
+              <button onclick="filterNetwork('mao')" class="network-filter-btn px-3 py-1.5 text-xs font-medium rounded bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-colors" data-filter="mao">
+                Maoist Gift (1953-82)
+              </button>
+              <button onclick="filterNetwork('deng')" class="network-filter-btn px-3 py-1.5 text-xs font-medium rounded bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-colors" data-filter="deng">
+                Dengist Commercial
+              </button>
+              <button onclick="filterNetwork('strategic')" class="network-filter-btn px-3 py-1.5 text-xs font-medium rounded bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-colors" data-filter="strategic">
+                Strategic Lease (Xi)
+              </button>
+            </div>
+          </div>
+
+          <!-- Secondary Toolbar: Navigation & Legend -->
+          <div class="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs">
+            <!-- Legend -->
+            <div class="flex flex-wrap items-center gap-4 text-gray-300">
+              <span class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded-full bg-china-crimson inline-block shadow-sm"></span>
+                <span>Beijing Center</span>
+              </span>
+              <span class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded-full bg-red-400 inline-block"></span>
+                <span>Maoist Gifts</span>
+              </span>
+              <span class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded-full bg-diplomatic-gold inline-block"></span>
+                <span>Commercial Leases</span>
+              </span>
+              <span class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded-full bg-panda-jade inline-block"></span>
+                <span>Energy &amp; Resources</span>
+              </span>
+              <span class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded-full bg-blue-400 inline-block"></span>
+                <span>Trade, Salmon &amp; Agri</span>
+              </span>
+              <span class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded-full bg-purple-400 inline-block"></span>
+                <span>Cross-Strait "Reunion"</span>
+              </span>
+            </div>
+
+            <!-- View Controls -->
+            <div class="flex items-center gap-2">
+              <button onclick="networkFit()" class="px-2.5 py-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded text-gray-300 hover:text-white flex items-center gap-1">
+                <i data-lucide="maximize" class="w-3 h-3"></i>
+                <span>Fit Canvas</span>
+              </button>
+              <button onclick="togglePhysics()" id="physicsToggleBtn" class="px-2.5 py-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded text-gray-300 hover:text-white flex items-center gap-1">
+                <i data-lucide="compass" class="w-3 h-3"></i>
+                <span id="physicsStatusText">Freeze Layout</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Graph Viewport & Slide-Over Info Split -->
+        <div class="relative bg-midnight-card border border-white/10 rounded-xl overflow-hidden shadow-2xl">
+          
+          <!-- Vis.js Canvas -->
+          <div id="networkCanvas"></div>
+
+          <!-- Slide-Over Node Details Drawer (Default Open with prompt or selected node) -->
+          <div id="nodeDetailDrawer" class="absolute top-4 right-4 bottom-4 w-full max-w-md bg-midnight-card/95 backdrop-blur-md border border-white/20 rounded-lg p-5 shadow-2xl flex flex-col justify-between overflow-y-auto transition-transform duration-300">
+            <div>
+              <!-- Drawer Header -->
+              <div class="flex items-start justify-between border-b border-white/10 pb-3">
+                <div>
+                  <span id="drawerEraBadge" class="text-[10px] font-mono uppercase tracking-wider text-china-crimson font-semibold">
+                    Strategic Lease Era
+                  </span>
+                  <h3 id="drawerTitle" class="text-lg font-serif font-bold text-white mt-0.5">
+                    Select a Node on the Graph
+                  </h3>
+                  <p id="drawerSubtitle" class="text-xs text-gray-400 mt-0.5">
+                    Click any nation, era, or treaty node to inspect intelligence details.
+                  </p>
+                </div>
+                <button onclick="closeNodeDrawer()" class="p-1 text-gray-400 hover:text-white rounded hover:bg-white/10" aria-label="Close details">
+                  <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <!-- Drawer Body Content -->
+              <div class="mt-4 space-y-4 text-xs">
+                
+                <!-- Pandas and Zoo -->
+                <div class="grid grid-cols-2 gap-2 bg-white/5 p-3 rounded border border-white/5">
+                  <div>
+                    <span class="text-gray-400 block text-[10px] uppercase font-mono">Panda Cohort:</span>
+                    <span id="drawerPandas" class="text-white font-medium text-xs">Tian Tian &amp; Yang Guang</span>
+                  </div>
+                  <div>
+                    <span class="text-gray-400 block text-[10px] uppercase font-mono">Host Institution:</span>
+                    <span id="drawerZoo" class="text-white font-medium text-xs">Edinburgh Zoo, UK</span>
+                  </div>
+                </div>
+
+                <!-- Geopolitical Context -->
+                <div>
+                  <span class="text-gray-400 block text-[10px] uppercase font-mono mb-1">Geopolitical Timing &amp; Treaties:</span>
+                  <p id="drawerContext" class="text-gray-300 leading-relaxed bg-black/30 p-3 rounded border border-white/5">
+                    Coincided with £2.6B bilateral trade pacts. Following China's economic boycott of Norwegian salmon over the 2010 Nobel Peace Prize awarded to Liu Xiaobo, Beijing diverted salmon quotas to Scotland.
+                  </p>
+                </div>
+
+                <!-- Strategic Realpolitik Objective -->
+                <div>
+                  <span class="text-gray-400 block text-[10px] uppercase font-mono mb-1">Strategic Objective:</span>
+                  <p id="drawerObjective" class="text-gray-300 leading-relaxed bg-black/30 p-3 rounded border border-white/5">
+                    Securing offshore wind technology, chemical supply lines, and creating Scottish institutional lobbying pressure within the UK parliament.
+                  </p>
+                </div>
+
+                <!-- Financial / Contractual Status -->
+                <div class="bg-white/5 p-3 rounded border border-white/5 space-y-1">
+                  <div class="flex justify-between">
+                    <span class="text-gray-400">Lease Tariff:</span>
+                    <span id="drawerFee" class="text-white font-mono tabular-nums">$1,000,000 / year</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-400">Offspring Ownership:</span>
+                    <span id="drawerOffspring" class="text-panda-jade font-mono">100% PRC Ownership</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-400">Current Status:</span>
+                    <span id="drawerStatus" class="text-diplomatic-gold font-medium">Repatriated (Dec 2023)</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Drawer Bottom Action -->
+            <div class="pt-3 border-t border-white/10 mt-4 flex items-center justify-between gap-2">
+              <button onclick="jumpToCaseFromDrawer()" id="drawerCaseStudyBtn" class="w-full py-2 bg-china-crimson hover:bg-red-700 text-white font-medium text-xs rounded transition-colors flex items-center justify-center gap-1.5">
+                <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                <span>Open Dedicated Case Study</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bottom Floating Instructions -->
+          <div class="absolute bottom-4 left-4 bg-midnight-card/85 backdrop-blur-md px-3 py-1.5 rounded border border-white/10 text-[11px] text-gray-400 flex items-center gap-2 pointer-events-none">
+            <i data-lucide="mouse-pointer" class="w-3.5 h-3.5 text-china-crimson"></i>
+            <span>Click any node to open intelligence dossier · Drag to reposition · Scroll to zoom</span>
+          </div>
+        </div>
+
+        <!-- Chronological Dataset Table Preview (Searchable & Filterable) -->
+        <div class="bg-midnight-card border border-white/10 rounded-xl p-6 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+            <div>
+              <h3 class="text-lg font-serif font-bold text-white">Full Historical Deployment Ledger</h3>
+              <p class="text-xs text-gray-400">Complete archive of diplomatic deployments from the research dossier (1953–Present)</p>
+            </div>
+            <!-- Search Input -->
+            <div class="relative w-full sm:w-64">
+              <input type="text" id="datasetSearch" oninput="filterDatasetTable()" placeholder="Search nation, zoo, or treaty..." class="w-full bg-white/5 border border-white/10 rounded px-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-china-crimson" />
+              <i data-lucide="search" class="w-3.5 h-3.5 text-gray-400 absolute right-3 top-2.5"></i>
+            </div>
+          </div>
+
+          <!-- Responsive Table -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="border-b border-white/10 text-gray-400 font-mono uppercase text-[10px]">
+                  <th class="py-2.5 px-3">Date Range</th>
+                  <th class="py-2.5 px-3">Recipient Nation</th>
+                  <th class="py-2.5 px-3">Panda Cohort</th>
+                  <th class="py-2.5 px-3">Era</th>
+                  <th class="py-2.5 px-3">Geopolitical Context &amp; Strategic Timing</th>
+                  <th class="py-2.5 px-3 text-right">Inspect</th>
+                </tr>
+              </thead>
+              <tbody id="deploymentTableBody" class="divide-y divide-white/5 text-gray-300">
+                <!-- Dynamically populated in JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 3: THEORETICAL IR FRAMEWORK             -->
+      <!-- ========================================== -->
+      <section id="section-framework" class="tab-content hidden space-y-8">
+        
+        <!-- Header -->
+        <div class="bg-midnight-card border border-white/10 rounded-xl p-6 lg:p-8 space-y-3">
+          <div class="flex items-center gap-2 text-xs font-mono text-gray-400 mb-1">
+            <span>SECTION 03</span>
+            <span aria-hidden="true">·</span>
+            <span class="text-panda-jade">INTERNATIONAL RELATIONS TAXONOMY</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-serif font-bold text-white">Theoretical IR Framework &amp; Mechanisms</h2>
+          <p class="text-xs sm:text-sm text-gray-300 max-w-3xl leading-relaxed">
+            Panda Diplomacy operates across three distinct theoretical pillars of statecraft. Rather than isolated animal loans, each deployment strategically balances Joseph Nye's soft power attractions with Neo-Realist resource reciprocity and coercive public diplomacy.
+          </p>
+        </div>
+
+        <!-- 3 Interactive Cards Matrix -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Pillar 1: Soft Power -->
+          <div class="bg-midnight-card border border-white/10 rounded-xl p-6 flex flex-col justify-between hover:border-china-crimson/60 transition-all group">
+            <div class="space-y-4">
+              <div class="w-10 h-10 rounded bg-china-crimson/15 border border-china-crimson/30 flex items-center justify-center text-china-crimson">
+                <i data-lucide="sparkles" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[10px] uppercase font-mono tracking-wider text-china-crimson font-semibold">Pillar 01 · Nye's Soft Power</span>
+              <h3 class="text-lg font-serif font-bold text-white">Soft Power &amp; Nation Branding</h3>
+              <p class="text-xs text-gray-300 leading-relaxed">
+                In international relations theory, soft power rests on the ability to shape the preferences of others through appeal and attraction rather than coercion or payment. Giant Pandas serve as quintessential soft power assets.
+              </p>
+
+              <div class="space-y-2 pt-2 border-t border-white/5 text-xs">
+                <div class="font-medium text-white">The "Halo Effect":</div>
+                <p class="text-gray-400 leading-normal">
+                  Universal affection creates an emotional buffer that softens China's authoritarian brand, mitigates negative coverage of territorial claims or human rights disputes, and builds a favorable public climate for diplomacy.
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-white/10 space-y-2 text-xs">
+              <span class="text-gray-400 font-mono text-[10px] uppercase block">Benchmark Case:</span>
+              <span class="text-white font-medium">1972 US National Zoo (20,000 visitors Day 1)</span>
+              <p class="text-[11px] text-gray-400">Overnight transformation of US public sentiment following Nixon's visit.</p>
+            </div>
+          </div>
+
+          <!-- Pillar 2: Reciprocity & Alignment -->
+          <div class="bg-midnight-card border border-white/10 rounded-xl p-6 flex flex-col justify-between hover:border-diplomatic-gold/60 transition-all group">
+            <div class="space-y-4">
+              <div class="w-10 h-10 rounded bg-diplomatic-gold/15 border border-diplomatic-gold/30 flex items-center justify-center text-diplomatic-gold">
+                <i data-lucide="scale" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[10px] uppercase font-mono tracking-wider text-diplomatic-gold font-semibold">Pillar 02 · Neo-Realism</span>
+              <h3 class="text-lg font-serif font-bold text-white">Reciprocity &amp; Strategic Alignment</h3>
+              <p class="text-xs text-gray-300 leading-relaxed">
+                From a Neo-Realist perspective, panda loans are rarely altruistic. Empirical analysis demonstrates a high correlation between panda deployments and major bilateral economic, resource, or technological concessions.
+              </p>
+
+              <div class="space-y-2 pt-2 border-t border-white/5 text-xs">
+                <div class="font-medium text-white">Quid Pro Quo Alignments:</div>
+                <p class="text-gray-400 leading-normal">
+                  Beijing systematically rewards states that sign bilateral FTAs, open critical supply chains (Australian &amp; French uranium, Scottish salmon, Qatari natural gas), or validate the One-China principle.
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-white/10 space-y-2 text-xs">
+              <span class="text-gray-400 font-mono text-[10px] uppercase block">Benchmark Case:</span>
+              <span class="text-white font-medium">2012 France ($20B Nuclear &amp; Uranium Deal)</span>
+              <p class="text-[11px] text-gray-400">Beauval pandas leased directly following nuclear supply agreements.</p>
+            </div>
+          </div>
+
+          <!-- Pillar 3: Coercive Public Diplomacy -->
+          <div class="bg-midnight-card border border-white/10 rounded-xl p-6 flex flex-col justify-between hover:border-panda-jade/60 transition-all group">
+            <div class="space-y-4">
+              <div class="w-10 h-10 rounded bg-panda-jade/15 border border-panda-jade/30 flex items-center justify-center text-panda-jade">
+                <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[10px] uppercase font-mono tracking-wider text-panda-jade font-semibold">Pillar 03 · Coercive Signaling</span>
+              <h3 class="text-lg font-serif font-bold text-white">Coercive Public Diplomacy</h3>
+              <p class="text-xs text-gray-300 leading-relaxed">
+                Conversely, the withdrawal, delay, or non-renewal of panda loans functions as a punitive signal. China routinely utilizes "panda recalls"—or the threat thereof—to express sharp diplomatic displeasure.
+              </p>
+
+              <div class="space-y-2 pt-2 border-t border-white/5 text-xs">
+                <div class="font-medium text-white">Punitive Recalls &amp; Friction:</div>
+                <p class="text-gray-400 leading-normal">
+                  When recipient host nations cross Beijing’s diplomatic red lines—such as hosting the Dalai Lama, enacting export curbs, or challenging maritime claims—leases face regulatory friction or non-renewal.
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-white/10 space-y-2 text-xs">
+              <span class="text-gray-400 font-mono text-[10px] uppercase block">Benchmark Case:</span>
+              <span class="text-white font-medium">2023 US National Zoo Panda Non-Renewal</span>
+              <p class="text-[11px] text-gray-400">Mei Xiang and cub returned amid escalating semiconductor sanctions.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Comparative Mechanism Matrix Table -->
+        <div class="bg-midnight-card border border-white/10 rounded-xl p-6 lg:p-8 space-y-6">
+          <div class="border-b border-white/10 pb-4">
+            <h3 class="text-xl font-serif font-bold text-white">Comparative Matrix of Diplomatic Mechanisms</h3>
+            <p class="text-xs text-gray-400">Systematic breakdown of objectives, tools, leverage, and foreign policy vulnerability</p>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="border-b border-white/10 text-gray-400 font-mono uppercase text-[10px]">
+                  <th class="py-3 px-3">Mechanism</th>
+                  <th class="py-3 px-3">Underlying IR Theory</th>
+                  <th class="py-3 px-3">Beijing's Primary Instrument</th>
+                  <th class="py-3 px-3">Target Audience</th>
+                  <th class="py-3 px-3">Host Nation Vulnerability</th>
+                  <th class="py-3 px-3">Historical Trigger</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-white/5 text-gray-300">
+                <tr class="hover:bg-white/5 transition-colors">
+                  <td class="py-3 px-3 font-semibold text-china-crimson">Soft Power Projection</td>
+                  <td class="py-3 px-3">Liberal Institutionalism / Constructivism</td>
+                  <td class="py-3 px-3">Charismatic megafauna, cultural ambassadors</td>
+                  <td class="py-3 px-3">General public, media, children, civic leaders</td>
+                  <td class="py-3 px-3">Erosion of critical discourse; goodwill halo</td>
+                  <td class="py-3 px-3">Nixon 1972 Visit, 2017 Berlin G20 Summit</td>
+                </tr>
+                <tr class="hover:bg-white/5 transition-colors">
+                  <td class="py-3 px-3 font-semibold text-diplomatic-gold">Economic Reciprocity</td>
+                  <td class="py-3 px-3">Neo-Realism / Mercantilism</td>
+                  <td class="py-3 px-3">10-year research leases conditioned on trade</td>
+                  <td class="py-3 px-3">Foreign trade ministries, corporate conglomerates</td>
+                  <td class="py-3 px-3">Commodity &amp; energy supply lock-in</td>
+                  <td class="py-3 px-3">France 2012 nuclear tech, UK 2011 salmon quotas</td>
+                </tr>
+                <tr class="hover:bg-white/5 transition-colors">
+                  <td class="py-3 px-3 font-semibold text-panda-jade">Coercive Public Diplomacy</td>
+                  <td class="py-3 px-3">Coercive Diplomacy / Deterrence</td>
+                  <td class="py-3 px-3">Non-renewal, health audit pretexts, recalls</td>
+                  <td class="py-3 px-3">Host state department, political elites</td>
+                  <td class="py-3 px-3">Sunk capital losses ($10M+), public outrage at zoo</td>
+                  <td class="py-3 px-3">Dalai Lama receptions, Norway Nobel boycott</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 4: DEEP-DIVE CASE STUDIES               -->
+      <!-- ========================================== -->
+      <section id="section-casestudies" class="tab-content hidden space-y-8">
+        
+        <!-- Header -->
+        <div class="bg-midnight-card border border-white/10 rounded-xl p-6 lg:p-8 space-y-3">
+          <div class="flex items-center gap-2 text-xs font-mono text-gray-400 mb-1">
+            <span>SECTION 04</span>
+            <span aria-hidden="true">·</span>
+            <span class="text-china-crimson">ARCHIVAL GEOPOLITICAL CASE RECONSTRUCTION</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-serif font-bold text-white">Deep-Dive Case Studies in Power Projection</h2>
+          <p class="text-xs sm:text-sm text-gray-300 max-w-3xl leading-relaxed">
+            Examine three historic flashpoints where Giant Pandas were deployed as decisive instruments of Cold War triangulation, resource mercantilism, and cross-strait sovereign messaging.
+          </p>
+
+          <!-- Case Selector Tabs -->
+          <div class="flex flex-wrap items-center gap-2 pt-4">
+            <button onclick="switchCase('usa1972')" id="caseTab-usa1972" class="case-study-tab px-4 py-2 rounded text-xs font-semibold bg-china-crimson text-white transition-colors">
+              Case 1: United States (1972) · Icebreaker Diplomacy
+            </button>
+            <button onclick="switchCase('uk2011')" id="caseTab-uk2011" class="case-study-tab px-4 py-2 rounded text-xs font-semibold bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">
+              Case 2: UK / Scotland (2011) · The Resource-Trade Axis
+            </button>
+            <button onclick="switchCase('taiwan2008')" id="caseTab-taiwan2008" class="case-study-tab px-4 py-2 rounded text-xs font-semibold bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">
+              Case 3: Taiwan (2008) · Cross-Strait "Reunion"
+            </button>
+          </div>
+        </div>
+
+        <!-- Case 1 Container -->
+        <div id="caseView-usa1972" class="case-view-panel space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <div class="lg:col-span-2 bg-midnight-card border border-white/10 rounded-xl p-6 lg:p-8 space-y-5">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
+                <span class="text-xs font-mono text-china-crimson font-semibold">COLD WAR RAPPROCHEMENT · 1972</span>
+                <span class="text-xs font-mono text-gray-400">Smithsonian National Zoo, Washington D.C.</span>
+              </div>
+              <h3 class="text-2xl font-serif font-bold text-white">
+                The United States (1972) — Icebreaker Diplomacy &amp; Triadic Rebalancing
+              </h3>
+              
+              <p class="text-sm text-gray-300 leading-relaxed">
+                Following President Richard Nixon's epochal February 1972 visit to Beijing, Premier Zhou Enlai famously announced during a state banquet to First Lady Pat Nixon that China would gift two Giant Pandas to the American people. In April 1972, <strong>Ling-Ling (玲玲)</strong> and <strong>Hsing-Hsing (星星)</strong> arrived at the Smithsonian National Zoological Park in Washington, D.C.
+              </p>
+
+              <div class="p-4 bg-white/5 rounded border-l-2 border-china-crimson text-xs italic text-gray-300 space-y-1">
+                <p>"Premier Zhou leaned over to Mrs. Nixon and pointed to a tin of Chinese 'Panda' brand cigarettes on the table, saying: 'I think I should give you some of those.' Mrs. Nixon replied: 'Cigarettes?' Zhou smiled: 'No, pandas.'"</p>
+                <span class="text-[10px] text-gray-400 block font-mono">— Diplomatic Dispatch, U.S. National Security Council, April 1972</span>
+              </div>
+
+              <div class="space-y-3 pt-2">
+                <h4 class="text-sm font-semibold text-white">Geopolitical Triangulation &amp; Domestic Consensus</h4>
+                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                  The pandas arrived at an acute moment in the Cold War. By executing the Sino-American rapprochement, Beijing and Washington effectively isolated the Soviet Union, shifting the triadic balance of power.Domestically, the pandas proved revolutionary: on their opening day at the National Zoo, over <strong>20,000 visitors</strong> queued in lines spanning miles. The charismatic bears transformed American public perception of China overnight from a closed communist adversary into a captivating cultural partner, manufacturing grassroots consensus for full diplomatic normalization in 1979.
+                </p>
+              </div>
+
+              <div class="pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div class="bg-white/5 p-3 rounded">
+                  <span class="text-gray-400 font-mono block text-[10px] uppercase">Reciprocal Gift by Nixon:</span>
+                  <span class="text-white font-medium">Pair of Alaskan Musk Oxen (Milton &amp; Matilda)</span>
+                  <p class="text-[11px] text-gray-400 mt-1">Dispatched to Beijing Zoo to cement bilateral diplomatic parity.</p>
+                </div>
+                <div class="bg-white/5 p-3 rounded">
+                  <span class="text-gray-400 font-mono block text-[10px] uppercase">Evolution to 2023:</span>
+                  <span class="text-white font-medium">From Gifts to Recalls</span>
+                  <p class="text-[11px] text-gray-400 mt-1">Pandas recalled in Nov 2023 as US-China relations cooled over tech sanctions.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Case 1 Quick Stats & Analysis -->
+            <div class="bg-midnight-card border border-white/10 rounded-xl p-6 space-y-6 flex flex-col justify-between">
+              <div>
+                <h4 class="font-serif font-bold text-white text-base border-b border-white/10 pb-3">Strategic Profile</h4>
+                <div class="space-y-4 mt-4 text-xs">
+                  <div>
+                    <span class="text-gray-400 font-mono text-[10px] uppercase block">Primary Panda Pair:</span>
+                    <span class="text-white font-semibold">Ling-Ling (♀) &amp; Hsing-Hsing (♂)</span>
+                  </div>
+                  <div>
+                    <span class="text-gray-400 font-mono text-[10px] uppercase block">Strategic Framework:</span>
+                    <span class="text-china-crimson font-medium">Maoist Uncompensated Gift</span>
+                  </div>
+                  <div>
+                    <span class="text-gray-400 font-mono text-[10px] uppercase block">Target Geopolitical Axis:</span>
+                    <span class="text-white">Triadic Sino-Soviet-US Balance of Power</span>
+                  </div>
+                  <div>
+                    <span class="text-gray-400 font-mono text-[10px] uppercase block">Public Impact:</span>
+                    <span class="text-panda-jade font-medium">&gt; 1.1 Million visitors in first year</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-4 bg-white/5 rounded border border-white/5 text-xs text-gray-400 space-y-2">
+                <span class="text-white font-medium block">Key Analytical Takeaway:</span>
+                <p>The 1972 deployment remains the archetype of soft power nation branding: weaponizing zoological charm to dissolve ideological resistance in a democratic society.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Case 2 Container -->
+        <div id="caseView-uk2011" class="case-view-panel hidden space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <div class="lg:col-span-2 bg-midnight-card border border-white/10 rounded-xl p-6 lg:p-8 space-y-5">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
+                <span class="text-xs font-mono text-diplomatic-gold font-semibold">RESOURCE MERCANTILISM · 2011</span>
+                <span class="text-xs font-mono text-gray-400">Royal Zoological Society, Edinburgh Zoo</span>
+              </div>
+              <h3 class="text-2xl font-serif font-bold text-white">
+                UK / Scotland (2011) — The Resource-Trade Axis &amp; Salmon Geopolitics
+              </h3>
+              
+              <p class="text-sm text-gray-300 leading-relaxed">
+                In December 2011, <strong>Tian Tian (甜甜 - Sweetie)</strong> and <strong>Yang Guang (阳光 - Sunshine)</strong> arrived at Edinburgh Zoo. Rather than an uncompensated gift, this was a meticulously calibrated $1M/year strategic research lease that coincided directly with over <strong>£2.6 billion ($4 billion USD)</strong> in bilateral trade and investment agreements.
+              </p>
+
+              <div class="space-y-3 pt-2">
+                <h4 class="text-sm font-semibold text-white">The "Salmon Geopolitics" &amp; Norwegian Punishment</h4>
+                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                  In 2010, the independent Norwegian Nobel Committee awarded the Nobel Peace Prize to incarcerated Chinese human rights activist Liu Xiaobo. Enraged, Beijing imposed retaliatory veterinary restrictions and import boycotts against Norwegian salmon, collapsing Norway's Chinese salmon market share from nearly 90% down to under 30%.
+                </p>
+                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                  Simultaneously, China shifted its massive salmon import quotas directly to <strong>Scottish salmon fisheries</strong>, signing landmark agricultural access treaties in tandem with the Edinburgh panda lease. In addition, deals were executed for British petrochemical access, automotive engineering, and offshore wind technology transfer to Chinese state enterprises.
+                </p>
+              </div>
+
+              <div class="pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div class="bg-white/5 p-3 rounded">
+                  <span class="text-gray-400 font-mono block text-[10px] uppercase">Financial Sunk Cost:</span>
+                  <span class="text-white font-medium">£8.0 Million+ Cumulative Zoo Outlay</span>
+                  <p class="text-[11px] text-gray-400 mt-1">Edinburgh Zoo shouldered immense costs including flying specialized bamboo.</p>
+                </div>
+                <div class="bg-white/5 p-3 rounded">
+                  <span class="text-gray-400 font-mono block text-[10px] uppercase">Repatriation Timing:</span>
+                  <span class="text-white font-medium">December 2023 Departure</span>
+                  <p class="text-[11px] text-gray-400 mt-1">Pandas returned after 12 years as UK-China political relations cooled.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Case 2 Quick Stats -->
+            <div class="bg-midnight-card border border-white/10 rounded-xl p-6 space-y-6 flex flex-col justify-between">
+              <div>
+                <h4 class="font-serif font-bold text-white text-base border-b border-white/10 pb-3">Strategic Profile</h4>
+                <div class="space-y-4 mt-4 text-xs">
+                  <div>
+                    <span class="text-gray-400 font-mono text-[10px] uppercase block">Primary Panda Pair:</span>
+                    <span class="text-white font-semibold">Tian Tian (♀) &amp; Yang Guang (♂)</span>
+                  </div>
+                  <div>
+                    <span class="text-gray-400 font-mono text-[10px] uppercase block">Strategic Framework:</span>
+                    <span class="text-diplomatic-gold font-medium">Strategic Conservation Lease</span>
+                  </div>
+                  <div>
+                    <span class="text-gray-400 font-mono text-[10px] uppercase block">Commodity Vector:</span>
+                    <span class="text-white">Salmon import substitution &amp; Offshore wind</span>
+                  </div>
+                  <div>
+                    <span class="text-gray-400 font-mono text-[10px] uppercase block">Punished Competitor:</span>
+                    <span class="text-china-crimson font-medium">Norway (Nobel Prize Boycott)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-4 bg-white/5 rounded border border-white/5 text-xs text-gray-400 space-y-2">
+                <span class="text-white font-medium block">Key Analytical Takeaway:</span>
+                <p>Demonstrates Beijing’s carrots-and-sticks playbook: rewarding Edinburgh with pandas and salmon sales while punishing Oslo with punitive economic quarantines.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Case 3 Container -->
+        <div id="caseView-taiwan2008" class="case-view-panel hidden space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <div class="lg:col-span-2 bg-midnight-card border border-white/10 rounded-xl p-6 lg:p-8 space-y-5">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
+                <span class="text-xs font-mono text-purple-400 font-semibold">CROSS-STRAIT SOVEREIGN INTEGRATION · 2008</span>
+                <span class="text-xs font-mono text-gray-400">Taipei Zoo, Taiwan</span>
+              </div>
+              <h3 class="text-2xl font-serif font-bold text-white">
+                Taiwan (2008) — "Reunion" (Tuan Yuan 团圆) and Linguistic Warfare
+              </h3>
+              
+              <p class="text-sm text-gray-300 leading-relaxed">
+                The offering of pandas to Taiwan represents one of the most culturally calculated deployments in diplomatic history. First proposed in 2005 by Chinese President Hu Jintao, the offer was vehemently rejected by Taiwan’s pro-independence Democratic Progressive Party (DPP) President Chen Shui-bian, who denounced them as a <em>"Trojan horse"</em> intended to erode Taiwanese identity and signify domestic Chinese sovereignty.
+              </p>
+
+              <div class="space-y-3 pt-2">
+                <h4 class="text-sm font-semibold text-white">Weaponized Nomenclature: The "Tuan Yuan" Linguistic Device</h4>
+                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                  Following the 2008 election of Kuomintang (KMT) President Ma Ying-jeou—who championed closer cross-strait economic ties—Taiwan officially accepted the pair. The chosen pandas were named <strong>Tuan Tuan (团团)</strong> and <strong>Yuan Yuan (圆圆)</strong>. When spoken together, their names form the Chinese idiom <em>"Tuan Yuan"</em> (团圆), literally translating to <strong>"Reunion"</strong> or <strong>"Family Wholeness."</strong>
+                </p>
+                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                  Through this linguistic branding, every Taiwanese news broadcast, school trip, and zoo visitor involuntarily reinforced Beijing's grand narrative of inevitable reunification under the One-China principle.
+                </p>
+              </div>
+
+              <div class="pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div class="bg-white/5 p-3 rounded">
+                  <span class="text-gray-400 font-mono block text-[10px] uppercase">Legal Status Anomaly:</span>
+                  <span class="text-white font-medium">Domestic Transfer (No CITES Permit)</span>
+                  <p class="text-[11px] text-gray-400 mt-1">PRC treated the shipment as internal domestic cargo, denying Taiwan sovereign status.</p>
+                </div>
+                <div class="bg-white/5 p-3 rounded">
+                  <span class="text-gray-400 font-mono block text-[10px] uppercase">Reciprocal Zoological Gift:</span>
+                  <span class="text-white font-medium">Formosan Sika Deer &amp; Serows</span>
+                  <p class="text-[11px] text-gray-400 mt-1">Taiwan gifted two indigenous deer to Liugongdao Park in Shandong.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Case 3 Quick Stats -->
+            <div class="bg-midnight-card border border-white/10 rounded-xl p-6 space-y-6 flex flex-col justify-between">
+              <div>
+                <h4 class="font-serif font-bold text-white text-base border-b border-white/10 pb-3">Strategic Profile</h4>
+                <div class="space-y-4 mt-4 text-xs">
+                  <div>
+                    <span class="text-gray-400 font-mono text-[10px] uppercase block">Primary Panda Pair:</span>
+                    <span class="text-white font-semibold">Tuan Tuan (♂) &amp; Yuan Yuan (♀)</span>
+                  </div>
+                  <div>
+                    <span class="text-gray-400 font-mono text-[10px] uppercase block">Strategic Framework:</span>
+                    <span class="text-purple-400 font-medium">Special Direct Political Loan</span>
+                  </div>
+                  <div>
+                    <span class="text-gray-400 font-mono text-[10px] uppercase block">Symbolic Weapon:</span>
+                    <span class="text-white">团圆 (Tuan Yuan) = "National Reunification"</span>
+                  </div>
+                  <div>
+                    <span class="text-gray-400 font-mono text-[10px] uppercase block">Tragic Legacy:</span>
+                    <span class="text-gray-300">Tuan Tuan passed Nov 2022 (joint cross-strait condolences)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-4 bg-white/5 rounded border border-white/5 text-xs text-gray-400 space-y-2">
+                <span class="text-white font-medium block">Key Analytical Takeaway:</span>
+                <p>Illustrates how zoological nomenclature can be engineered into a psychological soft-power campaign to erode adversary state identity from within.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 5: FINANCIAL & LEGAL LEASE CALCULATOR  -->
+      <!-- ========================================== -->
+      <section id="section-calculator" class="tab-content hidden space-y-8">
+        
+        <!-- Header -->
+        <div class="bg-midnight-card border border-white/10 rounded-xl p-6 lg:p-8 space-y-3">
+          <div class="flex items-center gap-2 text-xs font-mono text-gray-400 mb-1">
+            <span>SECTION 05</span>
+            <span aria-hidden="true">·</span>
+            <span class="text-diplomatic-gold">LEGAL JURISDICTION &amp; FINANCIAL ARCHITECTURE</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-serif font-bold text-white">Financial &amp; Legal Lease Calculator</h2>
+          <p class="text-xs sm:text-sm text-gray-300 max-w-3xl leading-relaxed">
+            The modern panda lease architecture is an ingenious model of foreign policy leverage, designed to enforce compliance through financial and institutional dependency. Use this tool to simulate foreign capital transfer to the PRC and explore core legal clauses.
+          </p>
+        </div>
+
+        <!-- Calculator Grid: Controls & Outputs -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <!-- Left Controls Column (5 cols) -->
+          <div class="lg:col-span-5 bg-midnight-card border border-white/10 rounded-xl p-6 space-y-6">
+            <div class="border-b border-white/10 pb-3 flex items-center justify-between">
+              <h3 class="text-base font-serif font-bold text-white flex items-center gap-2">
+                <i data-lucide="sliders" class="w-4 h-4 text-china-crimson"></i>
+                Lease Contract Variables
+              </h3>
+              <button onclick="resetCalculatorDefaults()" class="text-[11px] font-mono text-gray-400 hover:text-white underline">Reset Defaults</button>
+            </div>
+
+            <div class="space-y-5 text-xs">
+              
+              <!-- Panda Pairs Slider -->
+              <div class="space-y-1.5">
+                <div class="flex justify-between font-medium">
+                  <label for="inputPairs" class="text-gray-300">Number of Panda Pairs:</label>
+                  <span id="labelPairs" class="text-white font-mono font-bold text-sm">1 Pair (2 Pandas)</span>
+                </div>
+                <input type="range" id="inputPairs" min="1" max="4" step="1" value="1" oninput="calculateLeaseCosts()" class="w-full h-1.5 bg-white/10 rounded cursor-pointer" />
+                <span class="text-[10px] text-gray-500">Standard diplomatic deployment is 1 breeding pair.</span>
+              </div>
+
+              <!-- Lease Duration Slider -->
+              <div class="space-y-1.5">
+                <div class="flex justify-between font-medium">
+                  <label for="inputDuration" class="text-gray-300">Agreement Duration (Years):</label>
+                  <span id="labelDuration" class="text-diplomatic-gold font-mono font-bold text-sm">10 Years</span>
+                </div>
+                <input type="range" id="inputDuration" min="5" max="15" step="1" value="10" oninput="calculateLeaseCosts()" class="w-full h-1.5 bg-white/10 rounded cursor-pointer" />
+                <span class="text-[10px] text-gray-500">Standard research agreements run 10 to 15 years.</span>
+              </div>
+
+              <!-- Annual Conservation Fee Slider -->
+              <div class="space-y-1.5">
+                <div class="flex justify-between font-medium">
+                  <label for="inputFee" class="text-gray-300">Annual Conservation Fee per Pair:</label>
+                  <span id="labelFee" class="text-china-crimson font-mono font-bold text-sm">$1,000,000 USD</span>
+                </div>
+                <input type="range" id="inputFee" min="500000" max="2000000" step="100000" value="1000000" oninput="calculateLeaseCosts()" class="w-full h-1.5 bg-white/10 rounded cursor-pointer" />
+                <span class="text-[10px] text-gray-500">Remitted directly to Sichuan provincial trusts.</span>
+              </div>
+
+              <!-- Anticipated Cubs Born Abroad -->
+              <div class="space-y-1.5">
+                <div class="flex justify-between font-medium">
+                  <label for="inputCubs" class="text-gray-300">Anticipated Cubs Born Abroad:</label>
+                  <span id="labelCubs" class="text-panda-jade font-mono font-bold text-sm">1 Cub</span>
+                </div>
+                <input type="range" id="inputCubs" min="0" max="5" step="1" value="1" oninput="calculateLeaseCosts()" class="w-full h-1.5 bg-white/10 rounded cursor-pointer" />
+                <span class="text-[10px] text-gray-500">Subject to $600,000 one-time "Baby Tax" &amp; 100% PRC repatriation.</span>
+              </div>
+
+              <!-- Annual Enclosure Operating & Bamboo Costs -->
+              <div class="space-y-1.5">
+                <div class="flex justify-between font-medium">
+                  <label for="inputOps" class="text-gray-300">Annual Bamboo &amp; Zoo Ops / Pair:</label>
+                  <span id="labelOps" class="text-white font-mono font-bold text-sm">$2,000,000 USD/yr</span>
+                </div>
+                <input type="range" id="inputOps" min="1000000" max="3500000" step="250000" value="2000000" oninput="calculateLeaseCosts()" class="w-full h-1.5 bg-white/10 rounded cursor-pointer" />
+                <span class="text-[10px] text-gray-500">Includes 40kg fresh bamboo/day, climate systems, and keepers.</span>
+              </div>
+
+              <!-- Upfront Habitat Construction CapEx -->
+              <div class="space-y-1.5">
+                <div class="flex justify-between font-medium">
+                  <label for="inputCapex" class="text-gray-300">Upfront Habitat Construction CapEx:</label>
+                  <span id="labelCapex" class="text-white font-mono font-bold text-sm">$8,000,000 USD</span>
+                </div>
+                <input type="range" id="inputCapex" min="3000000" max="20000000" step="1000000" value="8000000" oninput="calculateLeaseCosts()" class="w-full h-1.5 bg-white/10 rounded cursor-pointer" />
+                <span class="text-[10px] text-gray-500">Irrecoverable sunk capital invested by host municipality.</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Right Output & Chart Column (7 cols) -->
+          <div class="lg:col-span-7 bg-midnight-card border border-white/10 rounded-xl p-6 space-y-6 flex flex-col justify-between">
+            <div>
+              <div class="border-b border-white/10 pb-3 flex items-center justify-between">
+                <h3 class="text-base font-serif font-bold text-white flex items-center gap-2">
+                  <i data-lucide="pie-chart" class="w-4 h-4 text-panda-jade"></i>
+                  Simulated Financial Exposure &amp; Capital Transfer
+                </h3>
+                <span class="text-xs font-mono text-gray-400">Total Commitment</span>
+              </div>
+
+              <!-- Output KPI Matrix -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                
+                <!-- Output 1: Direct PRC Remittance -->
+                <div class="bg-white/5 p-4 rounded-lg border border-china-crimson/30">
+                  <span class="text-[10px] font-mono uppercase text-gray-400 block">Direct PRC State Remittance:</span>
+                  <div id="outputPrcTotal" class="text-2xl font-bold font-mono text-china-crimson mt-1 tabular-nums">
+                    $10,600,000
+                  </div>
+                  <span class="text-[11px] text-gray-400 mt-1 block">Lease conservation fees + Cub taxes paid directly to Beijing.</span>
+                </div>
+
+                <!-- Output 2: Total Zoo Sunk Cost -->
+                <div class="bg-white/5 p-4 rounded-lg border border-diplomatic-gold/30">
+                  <span class="text-[10px] font-mono uppercase text-gray-400 block">Total Host Institutional Outlay:</span>
+                  <div id="outputGrandTotal" class="text-2xl font-bold font-mono text-diplomatic-gold mt-1 tabular-nums">
+                    $38,600,000
+                  </div>
+                  <span class="text-[11px] text-gray-400 mt-1 block">Includes CapEx, operations, dietary flights, and remittances.</span>
+                </div>
+
+              </div>
+
+              <!-- Breakdown Definition List -->
+              <div class="mt-4 bg-black/40 p-3 rounded border border-white/5 divide-y divide-white/5 text-xs">
+                <div class="flex justify-between py-1.5">
+                  <span class="text-gray-400">Annual Base Conservation Fees (Term):</span>
+                  <span id="breakdownBase" class="text-white font-mono tabular-nums">$10,000,000</span>
+                </div>
+                <div class="flex justify-between py-1.5">
+                  <span class="text-gray-400">Offspring "Baby Tax" ($600k / cub):</span>
+                  <span id="breakdownBaby" class="text-panda-jade font-mono tabular-nums">$600,000</span>
+                </div>
+                <div class="flex justify-between py-1.5">
+                  <span class="text-gray-400">Cumulative Ongoing Care &amp; Bamboo Imports:</span>
+                  <span id="breakdownOps" class="text-white font-mono tabular-nums">$20,000,000</span>
+                </div>
+                <div class="flex justify-between py-1.5">
+                  <span class="text-gray-400">Enclosure Construction Sunk Capital:</span>
+                  <span id="breakdownCapex" class="text-white font-mono tabular-nums">$8,000,000</span>
+                </div>
+              </div>
+
+              <!-- Chart.js Container -->
+              <div class="mt-6">
+                <span class="text-[11px] font-mono text-gray-400 block mb-2 uppercase">10-Year Financial Allocation Breakdown (USD Millions)</span>
+                <div class="h-48 w-full bg-black/30 rounded p-2 border border-white/5">
+                  <canvas id="costBreakdownChart"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sunk Cost Lobbying Pressure Index -->
+            <div class="p-4 bg-white/5 border border-white/10 rounded-lg text-xs space-y-2 mt-4">
+              <div class="flex items-center justify-between">
+                <span class="font-semibold text-white">Institutional Sunk-Cost Lobbying Index:</span>
+                <span id="sunkIndexBadge" class="font-mono font-bold text-china-crimson">EXTREME (88/100)</span>
+              </div>
+              <p class="text-gray-400 text-[11px] leading-relaxed">
+                Because host zoos commit massive upfront non-recoverable capital, their leadership faces existential financial ruin if leases are terminated early. Consequently, zoological directors routinely lobby foreign ministries to preserve harmonious diplomatic ties with China.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Section 6: Legal Clauses & Codependency Mechanisms Explorer -->
+        <div class="bg-midnight-card border border-white/10 rounded-xl p-6 lg:p-8 space-y-6">
+          <div class="border-b border-white/10 pb-4">
+            <h3 class="text-xl font-serif font-bold text-white">Core Structural Clauses in Modern Lease Contracts</h3>
+            <p class="text-xs text-gray-400">Analytical dissection of contractual stipulations from Section 6 of the academic paper</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Clause 1 -->
+            <div class="p-5 bg-white/5 border border-white/10 rounded-lg space-y-2 hover:border-china-crimson/50 transition-colors">
+              <div class="flex items-center justify-between text-xs font-mono text-gray-400">
+                <span class="text-china-crimson font-bold">CLAUSE 01</span>
+                <span>FINANCIAL MANDATE</span>
+              </div>
+              <h4 class="font-serif font-bold text-white text-base">The $1 Million Annual Conservation Fee</h4>
+              <p class="text-xs text-gray-300 leading-relaxed">
+                Foreign zoos pay between <strong>$500,000 and $1,000,000 annually per pair</strong> under the auspices of supporting giant panda habitat conservation in Sichuan. These funds are remitted directly to state agencies, effectively forcing Western institutions and donors to underwrite PRC ecological infrastructure.
+              </p>
+            </div>
+
+            <!-- Clause 2 -->
+            <div class="p-5 bg-white/5 border border-white/10 rounded-lg space-y-2 hover:border-panda-jade/50 transition-colors">
+              <div class="flex items-center justify-between text-xs font-mono text-gray-400">
+                <span class="text-panda-jade font-bold">CLAUSE 02</span>
+                <span>BIOLOGICAL SOVEREIGNTY</span>
+              </div>
+              <h4 class="font-serif font-bold text-white text-base">The Sovereign Birth Right Clause ("Born Abroad")</h4>
+              <p class="text-xs text-gray-300 leading-relaxed">
+                Any offspring produced by leased pandas abroad remain the <strong>exclusive legal property of the People's Republic of China</strong>. Host institutions are required to pay a one-time "baby tax" (approx. $600,000) upon birth, and all cubs must be repatriated to China upon reaching their fourth birthday to enter the domestic breeding program.
+              </p>
+            </div>
+
+            <!-- Clause 3 -->
+            <div class="p-5 bg-white/5 border border-white/10 rounded-lg space-y-2 hover:border-diplomatic-gold/50 transition-colors">
+              <div class="flex items-center justify-between text-xs font-mono text-gray-400">
+                <span class="text-diplomatic-gold font-bold">CLAUSE 03</span>
+                <span>LEGAL AMBIGUITY</span>
+              </div>
+              <h4 class="font-serif font-bold text-white text-base">Unilateral Revocation Authority</h4>
+              <p class="text-xs text-gray-300 leading-relaxed">
+                Beijing retains contractual rights to terminate leases or recall pandas due to subjective "health concerns", "facility deficiencies", or undefined "national interests". This contractual ambiguity provides legal cover for geopolitical maneuvering when bilateral relations deteriorate.
+              </p>
+            </div>
+
+            <!-- Clause 4 -->
+            <div class="p-5 bg-white/5 border border-white/10 rounded-lg space-y-2 hover:border-blue-400/50 transition-colors">
+              <div class="flex items-center justify-between text-xs font-mono text-gray-400">
+                <span class="text-blue-400 font-bold">CLAUSE 04</span>
+                <span>LOGISTICAL CODEPENDENCY</span>
+              </div>
+              <h4 class="font-serif font-bold text-white text-base">Sunk Costs &amp; Dedicated Bamboo Supply</h4>
+              <p class="text-xs text-gray-300 leading-relaxed">
+                Maintaining giant pandas requires specialized housing, security infrastructure, and dedicated bamboo imports—costing zoos upward of <strong>$2.5 million annually</strong> (excluding lease fees). Because zoos incur severe sunk costs, host organizations become active domestic lobbyists urging their foreign ministries to maintain harmonious diplomatic ties.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Analytical Conclusion Banner (Section 7 from Paper) -->
+      <section class="bg-midnight-card border border-white/10 rounded-xl p-6 lg:p-8 space-y-4">
+        <div class="flex items-center gap-2 text-xs font-mono text-gray-400">
+          <span>SECTION 07</span>
+          <span aria-hidden="true">·</span>
+          <span class="text-panda-jade">ANALYTICAL CONCLUSION &amp; OUTLOOK</span>
+        </div>
+        <h3 class="text-xl font-serif font-bold text-white">The Panda as a Barometer of Geopolitical Calculus</h3>
+        <p class="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-4xl">
+          China’s Panda Diplomacy represents one of the most effective long-term soft power campaigns in modern international relations. By blending cultural charm with economic realpolitik and institutional codependency, Beijing has transformed a rare biological asset into a resilient instrument of diplomatic leverage. As global tensions rise and strategic rivalry intensifies, the flow and recall of these diplomatic ambassadors will remain a vital barometer for assessing China's geopolitical calculus and global alignments.
+        </p>
+        <div class="pt-2 text-xs text-gray-400 flex flex-wrap items-center gap-4">
+          <span>Source: Occasional Papers in Geopolitics &amp; Foreign Policy, Vol. 14, No. 3</span>
+          <span aria-hidden="true">·</span>
+          <span class="text-gray-300 font-mono">IR Chair Classification: Academic Reference</span>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal-dark border-t border-white/10 py-6 px-4 lg:px-8 text-xs text-gray-400">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <span class="font-serif font-semibold text-white">The Velvet Glove of Beijing</span>
+          <span>— Geopolitical Analysis of China's Panda Diplomacy</span>
+        </div>
+        <div class="flex items-center gap-4 text-gray-400">
+          <span>Spring 2026 Edition</span>
+          <span aria-hidden="true">·</span>
+          <span>Occasional Papers in Geopolitics</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Citation & Bibliography Modal -->
+    <div id="citationModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+      <div class="bg-midnight-card border border-white/20 rounded-xl max-w-2xl w-full p-6 space-y-5 shadow-2xl">
+        <div class="flex items-center justify-between border-b border-white/10 pb-3">
+          <h3 class="text-lg font-serif font-bold text-white flex items-center gap-2">
+            <i data-lucide="book-open" class="w-4 h-4 text-diplomatic-gold"></i>
+            Academic Citations &amp; Reference Apparatus
+          </h3>
+          <button onclick="closeCitationModal()" class="text-gray-400 hover:text-white p-1" aria-label="Close modal">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <div class="space-y-4 text-xs text-gray-300 max-h-96 overflow-y-auto">
+          <div class="bg-white/5 p-3 rounded space-y-1">
+            <span class="font-mono text-[10px] text-gray-400 uppercase">Primary Paper Citation:</span>
+            <p class="font-mono text-gray-200">
+              Senior Geopolitical Analyst &amp; IR Chair. (2026). "The Velvet Glove of Beijing: A Geopolitical Analysis of China's Panda Diplomacy." <em>Occasional Papers in Geopolitics &amp; Foreign Policy</em>, Vol. 14, No. 3, pp. 1–5.
+            </p>
+          </div>
+
+          <div class="bg-white/5 p-3 rounded space-y-1">
+            <span class="font-mono text-[10px] text-gray-400 uppercase">Theoretical Foundations:</span>
+            <ul class="list-disc list-inside space-y-1 text-gray-300">
+              <li>Nye, Joseph S. (2004). <em>Soft Power: The Means to Success in World Politics</em>. PublicAffairs.</li>
+              <li>Buckingham, K. C., David, J. N., &amp; Jepson, P. (2013). "Diplomats and refugees: Panda diplomacy, soft power and the conservation of species." <em>Environmental Practice</em>, 15(4), 358–370.</li>
+              <li>Hart, M. &amp; Johnson, B. (2017). "Resource Concessions and Biological Ambassadors: An Empirical Review of PRC Zoopolitics." <em>Global Environmental Politics</em>, 17(2), 45–68.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-white/10 flex justify-end">
+          <button onclick="closeCitationModal()" class="px-4 py-2 bg-white/10 hover:bg-white/15 text-white rounded text-xs font-medium">
+            Close Citation Window
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Complete JavaScript Application Engine -->
+    <script>
+      /* ==========================================================
+         1. COMPREHENSIVE HISTORICAL & DIPLOMATIC DATASET
+         ========================================================== */
+      const PANDA_DEPLOYMENTS = [
+        {
+          id: 'ussr1957',
+          nation: 'USSR',
+          flag: '🇷🇺',
+          year: '1957–1959',
+          pandas: 'Ping Ping & An An',
+          zoo: 'Moscow Zoo',
+          era: 'Maoist Gift',
+          eraCategory: 'mao',
+          context: 'Gifted to reinforce the Sino-Soviet Alliance during early Cold War ideological summitry.',
+          objective: 'Solidifying the socialist bloc and securing Soviet industrial & technical assistance.',
+          treaties: 'Sino-Soviet Treaty of Friendship, Alliance, and Mutual Assistance',
+          fee: 'Uncompensated ($0)',
+          offspring: 'PRC Gift (No conditions)',
+          status: 'Deceased',
+          vector: 'Cold War Rapprochement',
+          caseId: null
+        },
+        {
+          id: 'usa1972',
+          nation: 'United States',
+          flag: '🇺🇸',
+          year: '1972',
+          pandas: 'Ling-Ling & Hsing-Hsing',
+          zoo: 'Smithsonian National Zoo, Washington D.C.',
+          era: 'Maoist Gift',
+          eraCategory: 'mao',
+          context: 'Gifted following Richard Nixon\'s historic trip to Beijing, launching Sino-US rapprochement.',
+          objective: 'Triadic rebalancing against Soviet Union; manufacturing American grassroots goodwill.',
+          treaties: '1972 Shanghai Communiqué',
+          fee: 'Uncompensated ($0)',
+          offspring: 'Offspring retained by US (prior to 1984 policy change)',
+          status: 'Deceased',
+          vector: 'Cold War Rapprochement',
+          caseId: 'usa1972'
+        },
+        {
+          id: 'japan1972',
+          nation: 'Japan',
+          flag: '🇯🇵',
+          year: '1972',
+          pandas: 'Kan Kan & Lan Lan',
+          zoo: 'Ueno Zoo, Tokyo',
+          era: 'Maoist Gift',
+          eraCategory: 'mao',
+          context: 'Granted to commemorate the normalization of Sino-Japanese relations under Premier Tanaka.',
+          objective: 'Restoring bilateral diplomatic ties and expanding bilateral manufacturing investments.',
+          treaties: '1972 Japan-China Joint Communiqué',
+          fee: 'Uncompensated ($0)',
+          offspring: 'State Gift',
+          status: 'Deceased',
+          vector: 'Diplomatic Normalization',
+          caseId: null
+        },
+        {
+          id: 'france1973',
+          nation: 'France',
+          flag: '🇫🇷',
+          year: '1973',
+          pandas: 'Yen Yen & Li Li',
+          zoo: 'Vincennes Zoo, Paris',
+          era: 'Maoist Gift',
+          eraCategory: 'mao',
+          context: 'Dispatched following formal diplomatic recognition of the PRC by European powers under Pompidou.',
+          objective: 'Breaking Western European diplomatic blockade and deepening Gaullist independent ties.',
+          treaties: 'Bilateral Diplomatic Accord (Gaullist détente)',
+          fee: 'Uncompensated ($0)',
+          offspring: 'State Gift',
+          status: 'Deceased',
+          vector: 'European Recognition',
+          caseId: null
+        },
+        {
+          id: 'uk1974',
+          nation: 'United Kingdom',
+          flag: '🇬🇧',
+          year: '1974',
+          pandas: 'Chia Chia & Ching Ching',
+          zoo: 'London Zoo, Regent\'s Park',
+          era: 'Maoist Gift',
+          eraCategory: 'mao',
+          context: 'Dispatched following exchange of ambassadors and formal recognition under Edward Heath.',
+          objective: 'Cultivating European economic ties and establishing diplomatic channels in London.',
+          treaties: 'Full Ambassadorial Exchange Accord',
+          fee: 'Uncompensated ($0)',
+          offspring: 'State Gift',
+          status: 'Deceased',
+          vector: 'European Recognition',
+          caseId: null
+        },
+        {
+          id: 'mexico1975',
+          nation: 'Mexico',
+          flag: '🇲🇽',
+          year: '1975',
+          pandas: 'Pe Pe & Ying Ying',
+          zoo: 'Chapultepec Zoo, Mexico City',
+          era: 'Maoist Gift',
+          eraCategory: 'mao',
+          context: 'Presented to Mexico following President Luis Echeverría\'s 1973 state visit to Beijing.',
+          objective: 'Third World non-aligned diplomatic outreach in Latin America.',
+          treaties: 'Sino-Mexican Trade Protocol',
+          fee: 'Uncompensated ($0)',
+          offspring: 'Tohui born in Mexico (unconditional ownership retained)',
+          status: 'Deceased',
+          vector: 'Latin America Outreach',
+          caseId: null
+        },
+        {
+          id: 'spain1978',
+          nation: 'Spain',
+          flag: '🇪🇸',
+          year: '1978',
+          pandas: 'Shao Shao & Chang Chang',
+          zoo: 'Madrid Zoo Aquarium',
+          era: 'Maoist Gift',
+          eraCategory: 'mao',
+          context: 'Gifted following state visit of King Juan Carlos I of Spain to Beijing.',
+          objective: 'Post-Franco Spanish diplomatic integration and European goodwill.',
+          treaties: 'Sino-Spanish Cultural & Scientific Accord',
+          fee: 'Uncompensated ($0)',
+          offspring: 'Chu-Lin born 1982',
+          status: 'Deceased',
+          vector: 'European Recognition',
+          caseId: null
+        },
+        {
+          id: 'germany1980',
+          nation: 'West Germany',
+          flag: '🇩🇪',
+          year: '1980',
+          pandas: 'Tjen Tjen & Bao Bao',
+          zoo: 'Berlin Zoo',
+          era: 'Maoist Gift',
+          eraCategory: 'mao',
+          context: 'Dispatched to Federal Republic of Germany following Chancellor Helmut Schmidt\'s trip.',
+          objective: 'Expanding industrial capital equipment transfers from West German heavy industry.',
+          treaties: 'Sino-German Industrial Cooperation Agreement',
+          fee: 'Uncompensated ($0)',
+          offspring: 'State Gift',
+          status: 'Deceased',
+          vector: 'European Recognition',
+          caseId: null
+        },
+        {
+          id: 'usa_olympics1984',
+          nation: 'USA (Exhibits)',
+          flag: '🇺🇸',
+          year: '1984',
+          pandas: 'Yong Yong & Ying Xin',
+          zoo: 'Los Angeles Zoo (Olympic Tour)',
+          era: 'Dengist Commercial',
+          eraCategory: 'deng',
+          context: 'Short-term exhibition lease timed with the 1984 Los Angeles Summer Olympic Games.',
+          objective: 'Capital accumulation ($50k–$100k/month venue fees) and Deng Xiaoping\'s economic opening.',
+          treaties: 'Commercial Exhibition License',
+          fee: '$50,000 / month',
+          offspring: 'N/A (Short-term lease)',
+          status: 'Repatriated',
+          vector: 'Commercial Leasing',
+          caseId: null
+        },
+        {
+          id: 'sandiego1987',
+          nation: 'USA (San Diego)',
+          flag: '🇺🇸',
+          year: '1987–1988',
+          pandas: 'Basi & Yuan Yuan',
+          zoo: 'San Diego Zoo',
+          era: 'Dengist Commercial',
+          eraCategory: 'deng',
+          context: '200-day commercial exhibition generating massive gate receipts and international attention.',
+          objective: 'Direct foreign currency generation for PRC wildlife agencies under market reform.',
+          treaties: 'Short-term Commercial Agreement',
+          fee: '$100,000 / month',
+          offspring: 'N/A',
+          status: 'Repatriated',
+          vector: 'Commercial Leasing',
+          caseId: null
+        },
+        {
+          id: 'usa1999',
+          nation: 'United States',
+          flag: '🇺🇸',
+          year: '1999–2023',
+          pandas: 'Mei Xiang & Tian Tian',
+          zoo: 'Smithsonian National Zoo, Washington D.C.',
+          era: 'Strategic Lease (Xi)',
+          eraCategory: 'strategic',
+          context: 'Leased during intensive bilateral negotiations for China\'s World Trade Organization (WTO) accession.',
+          objective: 'Normalizing US-China commercial trade status; institutional research lock-in.',
+          treaties: 'US-China Bilateral WTO Accession Agreement',
+          fee: '$1,000,000 / year',
+          offspring: '100% PRC Ownership (Tai Shan, Bao Bao, Bei Bei, Xiao Qi Ji repatriated)',
+          status: 'Repatriated (Nov 2023)',
+          vector: 'WTO & Strategic Ties',
+          caseId: 'usa1972'
+        },
+        {
+          id: 'taiwan2008',
+          nation: 'Taiwan',
+          flag: '🇹🇼',
+          year: '2008',
+          pandas: 'Tuan Tuan & Yuan Yuan',
+          zoo: 'Taipei Zoo',
+          era: 'Special Direct',
+          eraCategory: 'strategic',
+          context: 'Gifted following Kuomintang (KMT) election victory, inaugurating direct cross-strait flights & trade.',
+          objective: 'Promoting One-China cross-strait integration; linguistic soft power ("Tuan Yuan" = Reunion).',
+          treaties: 'Cross-Strait Economic Cooperation Framework Agreement (ECFA)',
+          fee: 'Special Direct Protocol',
+          offspring: 'Yuan Zai & Yuan Bao retained under cross-strait pact',
+          status: 'Active (Tuan Tuan deceased 2022; Yuan Yuan & cubs active)',
+          vector: 'Cross-Strait "Reunion"',
+          caseId: 'taiwan2008'
+        },
+        {
+          id: 'australia2009',
+          nation: 'Australia',
+          flag: '🇦🇺',
+          year: '2009',
+          pandas: 'Wang Wang & Funi',
+          zoo: 'Adelaide Zoo',
+          era: 'Strategic Lease (Xi)',
+          eraCategory: 'strategic',
+          context: 'Dispatched following landmark $41B energy deals and bilateral uranium export treaties.',
+          objective: 'Securing uranium supplies for PRC nuclear power program and iron ore supply chains.',
+          treaties: 'Australia-China Bilateral Uranium Transfer Agreement',
+          fee: '$1,000,000 / year',
+          offspring: '100% PRC Ownership',
+          status: 'Active / Extended (2024)',
+          vector: 'Energy & Uranium',
+          caseId: null
+        },
+        {
+          id: 'uk2011',
+          nation: 'United Kingdom / Scotland',
+          flag: '🇬🇧',
+          year: '2011–2023',
+          pandas: 'Tian Tian & Yang Guang',
+          zoo: 'Edinburgh Zoo',
+          era: 'Strategic Lease (Xi)',
+          eraCategory: 'strategic',
+          context: 'Coincided with £2.6B trade pacts in Scottish salmon, offshore wind, and petrochemical technology.',
+          objective: 'Salmon import substitution (punishing Norway for Nobel Prize) & green tech acquisition.',
+          treaties: 'UK-China Green Energy & Agricultural Protocols',
+          fee: '$1,000,000 / year',
+          offspring: '100% PRC Ownership',
+          status: 'Repatriated (Dec 2023)',
+          vector: 'Trade & Salmon Axis',
+          caseId: 'uk2011'
+        },
+        {
+          id: 'france2012',
+          nation: 'France',
+          flag: '🇫🇷',
+          year: '2012',
+          pandas: 'Huan Huan & Yuan Zai',
+          zoo: 'ZooParc de Beauval',
+          era: 'Strategic Lease (Xi)',
+          eraCategory: 'strategic',
+          context: 'Assigned following $20B agreement for French Areva nuclear technology and uranium supply.',
+          objective: 'Acquisition of French nuclear reactor technology, Airbus aircraft, and EU alignment.',
+          treaties: 'Franco-Chinese Civilian Nuclear Energy Treaty',
+          fee: '$1,000,000 / year',
+          offspring: '100% PRC Ownership (Yuan Meng repatriated 2023)',
+          status: 'Active',
+          vector: 'Energy & Nuclear',
+          caseId: null
+        },
+        {
+          id: 'canada2013',
+          nation: 'Canada',
+          flag: '🇨🇦',
+          year: '2013–2020',
+          pandas: 'Er Shun & Da Mao',
+          zoo: 'Toronto & Calgary Zoos',
+          era: 'Strategic Lease (Xi)',
+          eraCategory: 'strategic',
+          context: 'Coincided with the ratification of the Canada-China Foreign Investment Promotion Agreement (FIPA).',
+          objective: 'Securing Canadian oil sands investments and uranium exports.',
+          treaties: 'Canada-China FIPA Treaty',
+          fee: '$1,000,000 / year',
+          offspring: 'Jia Panpan & Jia Yueyue repatriated',
+          status: 'Repatriated Early (2020 due to bamboo supply chain disruptions)',
+          vector: 'Energy & Investment',
+          caseId: null
+        },
+        {
+          id: 'malaysia2014',
+          nation: 'Malaysia',
+          flag: '🇲🇾',
+          year: '2014',
+          pandas: 'Fu Wa & Feng Yi',
+          zoo: 'Zoo Negara, Kuala Lumpur',
+          era: 'Strategic Lease (Xi)',
+          eraCategory: 'strategic',
+          context: 'Deployed following 40th anniversary of diplomatic ties and South China Sea bilateral coordination.',
+          objective: 'Softening maritime disputes and securing multi-billion dollar palm oil export contracts.',
+          treaties: 'Comprehensive Strategic Partnership Accord',
+          fee: '$1,000,000 / year',
+          offspring: '100% PRC Ownership (Nuan Nuan, Yi Yi repatriated)',
+          status: 'Active',
+          vector: 'ASEAN & Palm Oil',
+          caseId: null
+        },
+        {
+          id: 'belgium2014',
+          nation: 'Belgium',
+          flag: '🇧🇪',
+          year: '2014',
+          pandas: 'Hao Hao & Xing Hui',
+          zoo: 'Pairi Daiza, Brugelette',
+          era: 'Strategic Lease (Xi)',
+          eraCategory: 'strategic',
+          context: 'Arrived ahead of President Xi Jinping\'s historic official state visit to Belgium and the EU.',
+          objective: 'Gaining logistics gateway through Port of Antwerp and strengthening ties with EU headquarters.',
+          treaties: 'Bilateral Port Infrastructure & Logistics Protocols',
+          fee: '$1,000,000 / year',
+          offspring: 'Tian Bao, Bao Di, Bao Mei born under PRC ownership',
+          status: 'Active',
+          vector: 'European Logistics Hub',
+          caseId: null
+        },
+        {
+          id: 'southkorea2016',
+          nation: 'South Korea',
+          flag: '🇰🇷',
+          year: '2016',
+          pandas: 'Ai Bao & Le Bao',
+          zoo: 'Everland Resort, Yongin',
+          era: 'Strategic Lease (Xi)',
+          eraCategory: 'strategic',
+          context: 'Dispatched following the formal entry into force of the China-South Korea Free Trade Agreement (FTA).',
+          objective: 'Integrating high-tech semiconductor supply chains and countering THAAD deployment.',
+          treaties: 'China-Korea Bilateral FTA',
+          fee: '$1,000,000 / year',
+          offspring: 'Fu Bao repatriated 2024 to massive public grief',
+          status: 'Active',
+          vector: 'High-Tech & FTA',
+          caseId: null
+        },
+        {
+          id: 'netherlands2017',
+          nation: 'Netherlands',
+          flag: '🇳🇱',
+          year: '2017',
+          pandas: 'Wu Wen & Xing Ya',
+          zoo: 'Ouwehands Dierenpark, Rhenen',
+          era: 'Strategic Lease (Xi)',
+          eraCategory: 'strategic',
+          context: 'Presented following 45 years of diplomatic relations and Port of Rotterdam logistics cooperation.',
+          objective: 'Securing agri-food technology sharing and European maritime freight entry.',
+          treaties: 'Agri-Tech & Maritime Cooperation Framework',
+          fee: '$1,000,000 / year',
+          offspring: 'Fan Xing repatriated 2023',
+          status: 'Active',
+          vector: 'Trade & Agri-Tech',
+          caseId: null
+        },
+        {
+          id: 'germany2017',
+          nation: 'Germany',
+          flag: '🇩🇪',
+          year: '2017',
+          pandas: 'Meng Meng & Jiao Qing',
+          zoo: 'Zoo Berlin',
+          era: 'Strategic Lease (Xi)',
+          eraCategory: 'strategic',
+          context: 'Unveiled jointly by Chancellor Angela Merkel and President Xi Jinping during the G20 Berlin Summit.',
+          objective: 'Cementing Sino-EU economic partnership and German automotive manufacturing investments.',
+          treaties: 'G20 Sino-German Strategic Economic Partnership',
+          fee: '$1,000,000 / year',
+          offspring: 'Pit & Paule repatriated Dec 2023',
+          status: 'Active',
+          vector: 'Trade & Automotive',
+          caseId: null
+        },
+        {
+          id: 'finland2018',
+          nation: 'Finland',
+          flag: '🇫🇮',
+          year: '2018',
+          pandas: 'Jin Bao Bao & Hua Bao',
+          zoo: 'Ähtäri Zoo',
+          era: 'Strategic Lease (Xi)',
+          eraCategory: 'strategic',
+          context: 'Dispatched to mark centenary of Finnish independence and Belt & Road Arctic passage talks.',
+          objective: 'Securing forestry / bioeconomy technology and diplomatic support for Polar Silk Road.',
+          treaties: 'Bilateral Joint Working Plan for Clean Energy & Forestry',
+          fee: '$1,000,000 / year',
+          offspring: '100% PRC Ownership',
+          status: 'Repatriation announced 2024 due to zoo financial insolvency',
+          vector: 'Nordic & Arctic Route',
+          caseId: null
+        },
+        {
+          id: 'denmark2019',
+          nation: 'Denmark',
+          flag: '🇩🇰',
+          year: '2019',
+          pandas: 'Mao Sun & Xing Er',
+          zoo: 'Copenhagen Zoo',
+          era: 'Strategic Lease (Xi)',
+          eraCategory: 'strategic',
+          context: 'Accommodated in a $24M yin-yang enclosure designed by Bjarke Ingels Group.',
+          objective: 'Strengthening maritime container shipping via Maersk and wind turbine technology.',
+          treaties: 'Comprehensive Maritime & Environmental Agreement',
+          fee: '$1,000,000 / year',
+          offspring: '100% PRC Ownership',
+          status: 'Active',
+          vector: 'Maritime Shipping',
+          caseId: null
+        },
+        {
+          id: 'russia2019',
+          nation: 'Russia',
+          flag: '🇷🇺',
+          year: '2019',
+          pandas: 'Ru Yi & Ding Ding',
+          zoo: 'Moscow Zoo',
+          era: 'Strategic Lease (Xi)',
+          eraCategory: 'strategic',
+          context: 'Handed over by President Xi and President Putin commemorating 70 years of bilateral relations.',
+          objective: 'Consolidating Sino-Russian comprehensive strategic coordination against Western pressure.',
+          treaties: 'Joint Statement on Developing Comprehensive Partnership',
+          fee: '$1,000,000 / year',
+          offspring: 'Katyusha born in Moscow 2023',
+          status: 'Active',
+          vector: 'Strategic Alliance',
+          caseId: null
+        },
+        {
+          id: 'qatar2022',
+          nation: 'Qatar',
+          flag: '🇶🇦',
+          year: '2022',
+          pandas: 'Suhail & Thuraya',
+          zoo: 'Al Khor Park, Doha',
+          era: 'Strategic Lease (Xi)',
+          eraCategory: 'strategic',
+          context: 'First pandas in the Middle East, dispatched ahead of the 2022 FIFA World Cup.',
+          objective: 'Coinciding with landmark 27-year $60B liquefied natural gas (LNG) supply treaty with Sinopec.',
+          treaties: '27-Year Sino-Qatari LNG Long-Term Strategic Agreement',
+          fee: '$1,000,000 / year',
+          offspring: '100% PRC Ownership',
+          status: 'Active',
+          vector: 'Energy & LNG Treaties',
+          caseId: null
+        }
+      ];
+
+      /* ==========================================================
+         2. TAB NAVIGATION & GENERAL CONTROLS
+         ========================================================== */
+      function switchTab(tabId) {
+        // Hide all tab sections
+        document.querySelectorAll('.tab-content').forEach(el => {
+          el.classList.add('hidden');
+          el.classList.remove('block');
+        });
+
+        // Show selected section
+        const targetSection = document.getElementById(`section-${tabId}`);
+        if (targetSection) {
+          targetSection.classList.remove('hidden');
+          targetSection.classList.add('block');
+        }
+
+        // Update active class on top navigation buttons
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        const activeNavBtn = document.getElementById(`nav-btn-${tabId}`);
+        if (activeNavBtn) {
+          activeNavBtn.classList.add('active');
+        }
+
+        // Trigger chart resize or network layout if switching to calculator or mindmap
+        if (tabId === 'calculator' && window.leaseChart) {
+          setTimeout(() => window.leaseChart.resize(), 100);
+        }
+        if (tabId === 'mindmap' && window.visNetworkInstance) {
+          setTimeout(() => {
+            window.visNetworkInstance.fit();
+          }, 150);
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('hidden');
+      }
+
+      function toggleSummaryDrawer() {
+        const drawer = document.getElementById('summaryDrawerContent');
+        const chevron = document.getElementById('drawerChevron');
+        if (drawer.classList.contains('hidden')) {
+          drawer.classList.remove('hidden');
+          chevron.style.transform = 'rotate(180deg)';
+        } else {
+          drawer.classList.add('hidden');
+          chevron.style.transform = 'rotate(0deg)';
+        }
+      }
+
+      function openCitationModal() {
+        document.getElementById('citationModal').classList.remove('hidden');
+      }
+
+      function closeCitationModal() {
+        document.getElementById('citationModal').classList.add('hidden');
+      }
+
+      function printOrExportDossier() {
+        window.print();
+      }
+
+      /* ==========================================================
+         3. CASE STUDIES TAB CONTROLS
+         ========================================================== */
+      function switchCase(caseKey) {
+        document.querySelectorAll('.case-view-panel').forEach(panel => {
+          panel.classList.add('hidden');
+        });
+        const targetPanel = document.getElementById(`caseView-${caseKey}`);
+        if (targetPanel) {
+          targetPanel.classList.remove('hidden');
+        }
+
+        document.querySelectorAll('.case-study-tab').forEach(btn => {
+          btn.classList.remove('bg-china-crimson', 'text-white');
+          btn.classList.add('bg-white/5', 'text-gray-300');
+        });
+        const activeBtn = document.getElementById(`caseTab-${caseKey}`);
+        if (activeBtn) {
+          activeBtn.classList.add('bg-china-crimson', 'text-white');
+          activeBtn.classList.remove('bg-white/5', 'text-gray-300');
+        }
+      }
+
+      /* ==========================================================
+         4. VIS.JS NETWORK MIND MAP IMPLEMENTATION
+         ========================================================== */
+      let visNetworkInstance = null;
+      let networkDataNodes = null;
+      let networkDataEdges = null;
+      let physicsActive = true;
+      let selectedDeployment = null;
+
+      function initVisNetwork() {
+        const container = document.getElementById('networkCanvas');
+        if (!container) return;
+
+        // Construct Nodes & Edges
+        const nodesArray = [];
+        const edgesArray = [];
+
+        // Central Command Node
+        nodesArray.push({
+          id: 'beijing_core',
+          label: 'CHINA PANDA DIPLOMACY\n(State Council / CWCA)',
+          shape: 'box',
+          margin: 14,
+          color: {
+            background: '#E63946',
+            border: '#F59E0B',
+            highlight: { background: '#EF4444', border: '#FFFFFF' }
+          },
+          font: { color: '#FFFFFF', size: 14, face: 'Inter', strokeWidth: 0, bold: true },
+          shadow: { enabled: true, color: 'rgba(230, 57, 70, 0.6)', size: 25, x: 0, y: 0 },
+          fixed: false
+        });
+
+        // Era Cluster Parent Nodes
+        const eraNodes = [
+          {
+            id: 'era_mao',
+            label: 'MAOIST GIFT ERA\n(1953–1982)\nIdeological Rapprochement',
+            color: '#F87171',
+            shadowColor: 'rgba(248, 113, 113, 0.4)'
+          },
+          {
+            id: 'era_deng',
+            label: 'DENGIST COMMERCIAL\n(1984–1998)\n"Rent-a-Panda" Venues',
+            color: '#FBBF24',
+            shadowColor: 'rgba(251, 191, 36, 0.4)'
+          },
+          {
+            id: 'era_strategic',
+            label: 'STRATEGIC LEASE ERA\n(1998–Present)\nResource & FTA Alignment',
+            color: '#10B981',
+            shadowColor: 'rgba(16, 185, 129, 0.4)'
+          }
+        ];
+
+        eraNodes.forEach(era => {
+          nodesArray.push({
+            id: era.id,
+            label: era.label,
+            shape: 'box',
+            margin: 10,
+            color: {
+              background: '#1F2937',
+              border: era.color,
+              highlight: { background: '#374151', border: '#FFFFFF' }
+            },
+            font: { color: '#F9FAFB', size: 12, face: 'Inter', strokeWidth: 0, bold: true },
+            shadow: { enabled: true, color: era.shadowColor, size: 15 }
+          });
+
+          // Connect Central to Era
+          edgesArray.push({
+            from: 'beijing_core',
+            to: era.id,
+            color: { color: era.color, highlight: '#FFFFFF' },
+            width: 3,
+            smooth: { type: 'continuous' }
+          });
+        });
+
+        // Add Country / Deployment Nodes
+        PANDA_DEPLOYMENTS.forEach(dep => {
+          let parentEraId = 'era_strategic';
+          let nodeColor = '#3B82F6'; // default blue
+
+          if (dep.eraCategory === 'mao') {
+            parentEraId = 'era_mao';
+            nodeColor = '#F87171';
+          } else if (dep.eraCategory === 'deng') {
+            parentEraId = 'era_deng';
+            nodeColor = '#FBBF24';
+          } else {
+            // Strategic Era Subvectors
+            if (dep.vector.includes('Energy') || dep.vector.includes('Nuclear')) {
+              nodeColor = '#10B981'; // Green for energy
+            } else if (dep.vector.includes('Salmon') || dep.vector.includes('Trade') || dep.vector.includes('Agri')) {
+              nodeColor = '#60A5FA'; // Light blue
+            } else if (dep.vector.includes('Cross-Strait')) {
+              nodeColor = '#C084FC'; // Purple for Taiwan
+            } else if (dep.vector.includes('LNG')) {
+              nodeColor = '#F59E0B'; // Gold for Qatar
+            }
+          }
+
+          nodesArray.push({
+            id: dep.id,
+            label: `${dep.flag} ${dep.nation}\n(${dep.year})\n${dep.pandas}`,
+            shape: 'dot',
+            size: 18,
+            color: {
+              background: '#111827',
+              border: nodeColor,
+              highlight: { background: nodeColor, border: '#FFFFFF' }
+            },
+            borderWidth: 2,
+            font: { color: '#E5E7EB', size: 11, face: 'Inter', strokeWidth: 0 },
+            shadow: { enabled: true, color: nodeColor, size: 8 },
+            deploymentData: dep
+          });
+
+          // Connect Era to Deployment
+          edgesArray.push({
+            from: parentEraId,
+            to: dep.id,
+            color: { color: nodeColor, opacity: 0.7, highlight: '#FFFFFF' },
+            width: 1.5,
+            dashes: dep.eraCategory === 'deng' ? [4, 4] : false
+          });
+        });
+
+        networkDataNodes = new vis.DataSet(nodesArray);
+        networkDataEdges = new vis.DataSet(edgesArray);
+
+        const data = {
+          nodes: networkDataNodes,
+          edges: networkDataEdges
+        };
+
+        const options = {
+          nodes: {
+            scaling: { min: 14, max: 30 }
+          },
+          edges: {
+            selectionWidth: 3,
+            hoverWidth: 2
+          },
+          physics: {
+            enabled: true,
+            barnesHut: {
+              gravitationalConstant: -7500,
+              centralGravity: 0.25,
+              springLength: 130,
+              springConstant: 0.04,
+              damping: 0.09,
+              avoidOverlap: 0.3
+            },
+            stabilization: {
+              iterations: 150
+            }
+          },
+          interaction: {
+            hover: true,
+            tooltipDelay: 200,
+            zoomView: true,
+            dragView: true,
+            navigationButtons: false
+          }
+        };
+
+        visNetworkInstance = new vis.Network(container, data, options);
+
+        // Click Event Handler
+        visNetworkInstance.on('click', function(params) {
+          if (params.nodes.length > 0) {
+            const nodeId = params.nodes[0];
+            const node = networkDataNodes.get(nodeId);
+            if (node && node.deploymentData) {
+              displayNodeDetails(node.deploymentData);
+            }
+          }
+        });
+
+        // Pre-select Edinburgh Zoo / UK as an initial highlight
+        const initialDep = PANDA_DEPLOYMENTS.find(d => d.id === 'uk2011');
+        if (initialDep) {
+          displayNodeDetails(initialDep);
+        }
+      }
+
+      function displayNodeDetails(dep) {
+        selectedDeployment = dep;
+        const drawer = document.getElementById('nodeDetailDrawer');
+        if (!drawer) return;
+
+        drawer.classList.remove('hidden');
+
+        document.getElementById('drawerEraBadge').textContent = `${dep.era} · ${dep.vector}`;
+        document.getElementById('drawerTitle').textContent = `${dep.flag} ${dep.nation} (${dep.year})`;
+        document.getElementById('drawerSubtitle').textContent = `Treaty Context: ${dep.treaties}`;
+
+        document.getElementById('drawerPandas').textContent = dep.pandas;
+        document.getElementById('drawerZoo').textContent = dep.zoo;
+        document.getElementById('drawerContext').textContent = dep.context;
+        document.getElementById('drawerObjective').textContent = dep.objective;
+        document.getElementById('drawerFee').textContent = dep.fee;
+        document.getElementById('drawerOffspring').textContent = dep.offspring;
+        document.getElementById('drawerStatus').textContent = dep.status;
+
+        const caseBtn = document.getElementById('drawerCaseStudyBtn');
+        if (dep.caseId) {
+          caseBtn.classList.remove('hidden');
+          caseBtn.onclick = () => {
+            switchTab('casestudies');
+            switchCase(dep.caseId);
+          };
+        } else {
+          caseBtn.classList.add('hidden');
+        }
+      }
+
+      function closeNodeDrawer() {
+        document.getElementById('nodeDetailDrawer').classList.add('hidden');
+      }
+
+      function jumpToCaseFromDrawer() {
+        if (selectedDeployment && selectedDeployment.caseId) {
+          switchTab('casestudies');
+          switchCase(selectedDeployment.caseId);
+        }
+      }
+
+      function filterNetwork(eraFilter) {
+        // Update filter button styling
+        document.querySelectorAll('.network-filter-btn').forEach(btn => {
+          if (btn.getAttribute('data-filter') === eraFilter) {
+            btn.classList.remove('bg-white/5', 'text-gray-400');
+            btn.classList.add('bg-white/15', 'text-white');
+          } else {
+            btn.classList.add('bg-white/5', 'text-gray-400');
+            btn.classList.remove('bg-white/15', 'text-white');
+          }
+        });
+
+        if (!networkDataNodes) return;
+
+        if (eraFilter === 'all') {
+          networkDataNodes.forEach(node => {
+            networkDataNodes.update({ id: node.id, hidden: false });
+          });
+        } else {
+          networkDataNodes.forEach(node => {
+            if (node.id === 'beijing_core') {
+              networkDataNodes.update({ id: node.id, hidden: false });
+              return;
+            }
+            if (node.id === `era_${eraFilter}`) {
+              networkDataNodes.update({ id: node.id, hidden: false });
+              return;
+            }
+            if (node.deploymentData) {
+              const isMatch = (node.deploymentData.eraCategory === eraFilter);
+              networkDataNodes.update({ id: node.id, hidden: !isMatch });
+            } else {
+              networkDataNodes.update({ id: node.id, hidden: true });
+            }
+          });
+        }
+
+        if (visNetworkInstance) {
+          visNetworkInstance.fit();
+        }
+      }
+
+      function networkFit() {
+        if (visNetworkInstance) {
+          visNetworkInstance.fit({ animation: { duration: 600, easingFunction: 'easeInOutQuad' } });
+        }
+      }
+
+      function togglePhysics() {
+        physicsActive = !physicsActive;
+        if (visNetworkInstance) {
+          visNetworkInstance.setOptions({ physics: { enabled: physicsActive } });
+          const textEl = document.getElementById('physicsStatusText');
+          textEl.textContent = physicsActive ? 'Freeze Layout' : 'Unfreeze Physics';
+        }
+      }
+
+      /* ==========================================================
+         5. HISTORICAL DEPLOYMENT TABLE POPULATION & SEARCH
+         ========================================================== */
+      function populateDeploymentTable() {
+        const tbody = document.getElementById('deploymentTableBody');
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+        PANDA_DEPLOYMENTS.forEach(dep => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-white/5 transition-colors';
+          tr.innerHTML = `
+            <td class="py-2.5 px-3 font-mono font-medium text-white">${dep.year}</td>
+            <td class="py-2.5 px-3 font-medium text-white flex items-center gap-1.5">
+              <span>${dep.flag}</span>
+              <span>${dep.nation}</span>
+            </td>
+            <td class="py-2.5 px-3 text-gray-300">${dep.pandas}</td>
+            <td class="py-2.5 px-3">
+              <span class="text-[11px] font-mono text-gray-400">${dep.era}</span>
+            </td>
+            <td class="py-2.5 px-3 text-gray-400 max-w-xs truncate" title="${dep.context}">
+              ${dep.context}
+            </td>
+            <td class="py-2.5 px-3 text-right">
+              <button onclick="inspectDeploymentFromTable('${dep.id}')" class="px-2 py-1 bg-white/5 hover:bg-china-crimson text-gray-300 hover:text-white rounded text-[11px] transition-colors">
+                Inspect
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      function filterDatasetTable() {
+        const query = document.getElementById('datasetSearch').value.toLowerCase();
+        const rows = document.querySelectorAll('#deploymentTableBody tr');
+        rows.forEach(row => {
+          const text = row.innerText.toLowerCase();
+          row.style.display = text.includes(query) ? '' : 'none';
+        });
+      }
+
+      function inspectDeploymentFromTable(id) {
+        const dep = PANDA_DEPLOYMENTS.find(d => d.id === id);
+        if (!dep) return;
+        switchTab('mindmap');
+        displayNodeDetails(dep);
+        if (visNetworkInstance) {
+          visNetworkInstance.focus(id, {
+            scale: 1.2,
+            animation: { duration: 800, easingFunction: 'easeInOutQuad' }
+          });
+        }
+      }
+
+      /* ==========================================================
+         6. FINANCIAL & LEGAL LEASE CALCULATOR ENGINE
+         ========================================================== */
+      function calculateLeaseCosts() {
+        const pairs = parseInt(document.getElementById('inputPairs').value, 10);
+        const duration = parseInt(document.getElementById('inputDuration').value, 10);
+        const annualFeePerPair = parseInt(document.getElementById('inputFee').value, 10);
+        const cubs = parseInt(document.getElementById('inputCubs').value, 10);
+        const annualOpsPerPair = parseInt(document.getElementById('inputOps').value, 10);
+        const capex = parseInt(document.getElementById('inputCapex').value, 10);
+
+        // Update Slider Labels
+        document.getElementById('labelPairs').textContent = `${pairs} Pair${pairs > 1 ? 's' : ''} (${pairs * 2} Pandas)`;
+        document.getElementById('labelDuration').textContent = `${duration} Years`;
+        document.getElementById('labelFee').textContent = `$${(annualFeePerPair / 1000000).toFixed(1)}M USD`;
+        document.getElementById('labelCubs').textContent = `${cubs} Cub${cubs !== 1 ? 's' : ''}`;
+        document.getElementById('labelOps').textContent = `$${(annualOpsPerPair / 1000000).toFixed(2)}M USD/yr`;
+        document.getElementById('labelCapex').textContent = `$${(capex / 1000000).toFixed(1)}M USD`;
+
+        // Financial Math
+        const cubFeePerBirth = 600000; // $600k baby tax
+        const totalBaseConservationFees = pairs * duration * annualFeePerPair;
+        const totalCubTaxes = cubs * cubFeePerBirth;
+        const totalPrcRemittance = totalBaseConservationFees + totalCubTaxes;
+
+        const totalOperationalOutlay = (pairs * duration * annualOpsPerPair) + capex;
+        const grandTotalInstitutionalCost = totalPrcRemittance + totalOperationalOutlay;
+
+        // Render Outputs
+        document.getElementById('outputPrcTotal').textContent = `$${(totalPrcRemittance / 1000000).toFixed(2)}M`;
+        document.getElementById('outputGrandTotal').textContent = `$${(grandTotalInstitutionalCost / 1000000).toFixed(2)}M`;
+
+        document.getElementById('breakdownBase').textContent = `$${(totalBaseConservationFees / 1000000).toFixed(2)}M`;
+        document.getElementById('breakdownBaby').textContent = `$${(totalCubTaxes / 1000000).toFixed(2)}M`;
+        document.getElementById('breakdownOps').textContent = `$${((pairs * duration * annualOpsPerPair) / 1000000).toFixed(2)}M`;
+        document.getElementById('breakdownCapex').textContent = `$${(capex / 1000000).toFixed(2)}M`;
+
+        // Calculate Sunk Cost Lobbying Index
+        // Formula balances CapEx and operating sunk costs against baseline
+        const sunkCapitalFraction = (capex + (pairs * duration * annualOpsPerPair)) / grandTotalInstitutionalCost;
+        const indexScore = Math.min(98, Math.round((sunkCapitalFraction * 60) + (duration * 2.5) + (pairs * 5)));
+        
+        const badge = document.getElementById('sunkIndexBadge');
+        if (indexScore > 75) {
+          badge.textContent = `CRITICAL (${indexScore}/100)`;
+          badge.className = 'font-mono font-bold text-china-crimson';
+        } else if (indexScore > 50) {
+          badge.textContent = `HIGH (${indexScore}/100)`;
+          badge.className = 'font-mono font-bold text-diplomatic-gold';
+        } else {
+          badge.textContent = `MODERATE (${indexScore}/100)`;
+          badge.className = 'font-mono font-bold text-panda-jade';
+        }
+
+        // Update Chart.js Instance
+        updateLeaseChart(totalBaseConservationFees, totalCubTaxes, (pairs * duration * annualOpsPerPair), capex);
+      }
+
+      function resetCalculatorDefaults() {
+        document.getElementById('inputPairs').value = 1;
+        document.getElementById('inputDuration').value = 10;
+        document.getElementById('inputFee').value = 1000000;
+        document.getElementById('inputCubs').value = 1;
+        document.getElementById('inputOps').value = 2000000;
+        document.getElementById('inputCapex').value = 8000000;
+        calculateLeaseCosts();
+      }
+
+      function initLeaseChart() {
+        const ctx = document.getElementById('costBreakdownChart');
+        if (!ctx) return;
+
+        window.leaseChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['PRC Conservation', 'Baby Tax', 'Zoo Operations & Bamboo', 'Enclosure CapEx'],
+            datasets: [{
+              label: 'Commitment in Millions ($ USD)',
+              data: [10.0, 0.6, 20.0, 8.0],
+              backgroundColor: [
+                '#E63946', // Crimson for China Conservation
+                '#10B981', // Jade for Cub Tax
+                '#3B82F6', // Blue for Operations
+                '#F59E0B'  // Gold for CapEx
+              ],
+              borderColor: 'transparent',
+              borderRadius: 4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return ` $${context.raw.toFixed(2)}M USD`;
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                grid: { display: false },
+                ticks: { color: '#9CA3AF', font: { size: 10, family: 'Inter' } }
+              },
+              y: {
+                grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                ticks: {
+                  color: '#9CA3AF',
+                  font: { size: 10, family: 'JetBrains Mono' },
+                  callback: function(value) { return '$' + value + 'M'; }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      function updateLeaseChart(base, cub, ops, capex) {
+        if (!window.leaseChart) return;
+        window.leaseChart.data.datasets[0].data = [
+          base / 1000000,
+          cub / 1000000,
+          ops / 1000000,
+          capex / 1000000
+        ];
+        window.leaseChart.update();
+      }
+
+      /* ==========================================================
+         7. DOM READY INITIALIZATION
+         ========================================================== */
+      document.addEventListener('DOMContentLoaded', () => {
+        // Initialize Lucide Icons
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+
+        // Initialize Vis.js Network
+        initVisNetwork();
+
+        // Populate Table
+        populateDeploymentTable();
+
+        // Initialize Financial Calculator & Chart
+        initLeaseChart();
+        calculateLeaseCosts();
+      });
+    </script>
+  </body>
+</html>
